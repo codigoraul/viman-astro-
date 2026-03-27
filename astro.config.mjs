@@ -4,5 +4,5 @@ import tailwind from '@astrojs/tailwind';
 export default defineConfig({
   integrations: [tailwind()],
   output: 'static',
-  base: process.env.ASTRO_BASE || '/muestra'
+  base: process.env.ASTRO_BASE || '/'
 });
