@@ -1,0 +1,12 @@
+<?php
+
+declare(strict_types=1);
+
+return [
+  'BASE_PATH' => '',
+  'SITE_URL' => 'https://viman.cl',
+  'TO_EMAIL' => 'info@viman.cl',
+  'FROM_EMAIL' => 'info@viman.cl',
+  'FROM_NAME' => 'VIMAN',
+  'BCC_EMAILS' => 'codigoraul@gmail.com',
+];
