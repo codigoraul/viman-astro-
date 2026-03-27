@@ -1,0 +1,529 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import { getProducts } from '@/lib/wordpress';
+import { marked } from 'marked';
+
+export async function getStaticPaths() {
+  try {
+    const products = await getProducts(100);
+    console.log(`⚡ Cargados ${products.length} productos para rutas estáticas`);
+
+    return products.map((product: any) => ({
+      params: { slug: product.slug },
+      props: { product },
+    }));
+  } catch (error) {
+    console.error('Error generating product paths:', error);
+    return [];
+  }
+}
+
+const { slug } = Astro.params;
+const { product }: { product: any } = Astro.props;
+
+if (!product) {
+  return Astro.redirect('/muestra/productos/');
+}
+
+// Datos del producto - directo desde ACF, sin transformaciones complejas
+const productTitle = product.name || product.title?.rendered || 'Sin título';
+const productContent = product.content?.rendered || '';
+
+// Imagen principal desde el plugin (imagen_url) o galería ACF
+const featuredImage = product.imagen_url?.full
+  || product.galeria?.[0]?.url
+  || product.images?.[0]?.src
+  || 'https://via.placeholder.com/800x800?text=Sin+Imagen';
+
+const altText = product.galeria?.[0]?.alt
+  || product.images?.[0]?.alt
+  || productTitle;
+
+// Categorías desde el campo computado del plugin
+const categories = product.categorias || [];
+
+// Descripción corta desde ACF (campo dedicado, sin limpieza compleja)
+const productExcerpt = product.descripcion_corta
+  || product.short_description
+  || product.excerpt?.rendered
+  || '';
+
+// Galería: priorizar galería ACF, luego images normalizadas
+const galleryImages = product.galeria
+  ? product.galeria.map((img: any) => ({
+      src: img.url || img.sizes?.full || '',
+      alt: img.alt || img.title || productTitle,
+    }))
+  : product.images?.map((img: any) => ({
+      src: img.src,
+      alt: img.alt || productTitle,
+    })) || [];
+
+// Si no hay galería pero hay imagen principal, usarla como galería de 1
+if (galleryImages.length === 0 && featuredImage !== 'https://via.placeholder.com/800x800?text=Sin+Imagen') {
+  galleryImages.push({ src: featuredImage, alt: altText });
+}
+
+// Especificaciones técnicas - convertir Markdown a HTML si existe contenido
+const especificacionesHTML = product.especificaciones
+  ? marked(product.especificaciones)
+  : '';
+
+// Ficha técnica PDF desde ACF
+const fichaTecnica = product.ficha_tecnica?.url || null;
+
+// Campos técnicos adicionales desde ACF
+const modelo = product.modelo || '';
+const capacidad = product.capacidad || '';
+const material = product.material || '';
+
+// Debug
+console.log(`⚡ Producto: ${productTitle} | Excerpt: ${productExcerpt ? 'SÍ' : 'NO'} | Specs: ${especificacionesHTML ? 'SÍ' : 'NO'} | Galería: ${galleryImages.length} imgs`);
+---
+
+<Layout title={`${productTitle} - VIMAN`} description={(productExcerpt || productContent).replace(/<[^>]*>/g, '').substring(0, 160)}>
+  <Header />
+
+  <main class="min-h-screen bg-gray-50">
+    <div class="container mx-auto px-4 py-8 max-w-[1280px]">
+      <nav class="mb-6">
+        <a href="/muestra/productos/" class="text-secondary hover:text-secondary-dark">
+          ← Volver a productos
+        </a>
+      </nav>
+
+      <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+        <!-- Product Header Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 p-12">
+          <!-- Image Gallery with Slider -->
+          <div>
+            <div class="relative">
+              <!-- Main Image -->
+              <div id="mainImage" class="main-product-image overflow-hidden rounded-lg bg-gray-100 mb-4 cursor-pointer group">
+                <img
+                  src={featuredImage}
+                  alt={altText}
+                  class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105"
+                />
+                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-20 pointer-events-none">
+                  <svg class="w-12 h-12 text-white drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path>
+                  </svg>
+                </div>
+              </div>
+
+              <!-- Thumbnail Slider -->
+              {galleryImages.length > 1 && (
+                <div class="flex gap-2 overflow-x-auto pb-2">
+                  {galleryImages.map((img: any, index: number) => (
+                    <button
+                      data-src={img.src}
+                      data-alt={img.alt}
+                      class="thumbnail-btn flex-shrink-0 w-20 h-20 overflow-hidden rounded border-2 border-gray-200 hover:border-primary transition cursor-pointer"
+                    >
+                      <img
+                        src={img.src}
+                        alt={img.alt || `Thumbnail ${index + 1}`}
+                        class="w-full h-full object-cover"
+                      />
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+
+          <!-- Product Info -->
+          <div class="flex flex-col gap-6 h-full lg:justify-center">
+            <h1 class="text-3xl font-semibold text-gray-800">
+              {productTitle}
+            </h1>
+
+            {categories.length > 0 && (
+              <div class="flex flex-wrap gap-2">
+                {categories.map((category: any) => (
+                  <a
+                    href={`/muestra/categoria/${category.slug}/`}
+                    class="px-3 py-1 bg-accent-light text-primary rounded-full text-sm hover:bg-accent transition"
+                  >
+                    {category.name}
+                  </a>
+                ))}
+              </div>
+            )}
+
+            {productExcerpt && (
+              <div
+                class="text text-gray-600"
+                set:html={productExcerpt}
+              />
+            )}
+
+            <!-- Datos técnicos rápidos desde ACF -->
+            {(modelo || capacidad || material) && (
+              <div class="bg-gray-50 rounded-lg p-4 mb-6">
+                <h3 class="font-semibold text-gray-800 mb-2">Datos Técnicos</h3>
+                <dl class="grid grid-cols-2 gap-2 text-sm">
+                  {modelo && (
+                    <>
+                      <dt class="text-gray-500">Modelo:</dt>
+                      <dd class="text-gray-800 font-medium">{modelo}</dd>
+                    </>
+                  )}
+                  {capacidad && (
+                    <>
+                      <dt class="text-gray-500">Capacidad:</dt>
+                      <dd class="text-gray-800 font-medium">{capacidad}</dd>
+                    </>
+                  )}
+                  {material && (
+                    <>
+                      <dt class="text-gray-500">Material:</dt>
+                      <dd class="text-gray-800 font-medium">{material}</dd>
+                    </>
+                  )}
+                </dl>
+              </div>
+            )}
+
+            <div class="mb-6">
+              {fichaTecnica ? (
+                <a
+                  href={fichaTecnica}
+                  target="_blank"
+                  rel="noopener"
+                  class="inline-flex items-center text-primary text-sm hover:text-primary-dark"
+                >
+                  <span class="text-lg mr-2">↓</span>
+                  Descargar Ficha Técnica (PDF)
+                </a>
+              ) : (
+                <a
+                  href={`/muestra/fichas/${slug}.pdf`}
+                  download
+                  class="inline-flex items-center text-primary text-sm hover:text-primary-dark"
+                >
+                  <span class="text-lg mr-2">↓</span>
+                  Documento PDF
+                </a>
+              )}
+            </div>
+
+            <div class="mt-auto">
+              <div class="flex gap-4">
+                <a href="/muestra/contacto/" class="flex-1 bg-secondary text-white px-8 py-3 rounded-lg font-semibold hover:bg-secondary-dark transition text-center">
+                  Contactar
+                </a>
+                <button class="px-6 py-3 border-2 border-secondary rounded-lg hover:bg-secondary hover:text-white transition">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Details Section -->
+        <div class="border-t">
+          <div class="flex border-b">
+            <button
+              id="description-tab"
+              class="flex-1 px-6 py-4 text-center font-semibold text-primary border-b-2 border-primary bg-gray-50"
+            >
+              Descripción
+            </button>
+            <button
+              id="specifications-tab"
+              class="flex-1 px-6 py-4 text-center font-semibold text-gray-600 hover:text-primary transition"
+            >
+              Especificaciones Técnicas
+            </button>
+          </div>
+
+          <!-- Tab Content -->
+          <div class="p-8">
+            <div id="description-content" class="tab-content">
+              <div
+                class="prose prose-lg max-w-none text-gray-700"
+                set:html={productContent}
+              />
+            </div>
+
+            <div id="specifications-content" class="tab-content hidden">
+              <div class="space-y-4">
+                {especificacionesHTML ? (
+                  <div class="especificaciones-tecnicas">
+                    <div class="prose prose-lg max-w-none text-gray-700 especificaciones-tecnicas__content">
+                      <Fragment set:html={especificacionesHTML} />
+                    </div>
+                  </div>
+                ) : (
+                  <div class="text-gray-600 text-center py-8">
+                    <p class="text-lg">No hay especificaciones técnicas disponibles para este producto.</p>
+                    <p class="mt-2">Para obtener información técnica detallada, por favor contáctanos directamente.</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+
+  <!-- Lightbox Modal -->
+  <div id="lightbox" class="lightbox-hidden">
+    <div class="relative max-w-6xl max-h-[90vh] w-full h-full flex items-center justify-center">
+      <button id="lightbox-close" class="absolute top-4 right-4 text-white hover:text-gray-300 z-50">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+      <button id="lightbox-prev" class="absolute left-4 text-white hover:text-gray-300 z-50">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+      </button>
+      <button id="lightbox-next" class="absolute right-4 text-white hover:text-gray-300 z-50">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </button>
+      <img id="lightboxImage" src="" alt="" class="max-w-full max-h-full object-contain" />
+      <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white text-sm">
+        <span id="imageCounter">1 / 1</span>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .main-product-image {
+    aspect-ratio: 4 / 3;
+  }
+  .prose { color: #374151; }
+  .prose h1, .prose h2, .prose h3 { color: #1f2937; }
+  .prose a { color: #2563eb; }
+  .prose a:hover { color: #1d4ed8; }
+  .tab-content { display: block; }
+  .tab-content.hidden { display: none; }
+  .lightbox-hidden { display: none; }
+  .lightbox-visible {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 50;
+    align-items: center;
+    justify-content: center;
+  }
+  .especificaciones-tecnicas {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+  }
+  .especificaciones-tecnicas__content {
+    margin: 0;
+  }
+  :global(.especificaciones-tecnicas table) {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  :global(.especificaciones-tecnicas th),
+  :global(.especificaciones-tecnicas td) {
+    border: 1px solid #d7dce3;
+    padding: 14px 18px;
+    text-align: left;
+  }
+  :global(.especificaciones-tecnicas tr:nth-child(odd) td) {
+    background-color: #ffffff;
+  }
+  :global(.especificaciones-tecnicas tr:nth-child(even) td) {
+    background-color: #e9edf2;
+  }
+  :global(.especificaciones-tecnicas th) {
+    background-color: #1b2636;
+    color: #fff;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    background-image: linear-gradient(135deg, #1b2636 0%, #253144 100%);
+  }
+  :global(.especificaciones-tecnicas th:empty) {
+    display: none;
+    padding: 0;
+    border: none;
+    height: 0;
+    background: transparent;
+  }
+
+  /* Ocultar fila completa si todos los th están vacíos */
+  :global(.especificaciones-tecnicas tr:has(th:empty):not(:has(th:not(:empty)))) {
+    display: none;
+  }
+</style>
+
+<script is:inline>
+  (function() {
+    var galleryData = [];
+    var currentLightboxIndex = 0;
+
+    function changeMainImage(src, alt, clickedButton) {
+      var mainImage = document.getElementById('mainImage').querySelector('img');
+      if (mainImage) {
+        mainImage.style.opacity = '0';
+        setTimeout(function() {
+          mainImage.src = src;
+          mainImage.alt = alt;
+          mainImage.style.opacity = '1';
+        }, 150);
+      }
+      document.querySelectorAll('.thumbnail-btn').forEach(function(btn) {
+        btn.classList.remove('border-primary', 'ring-2', 'ring-primary', 'ring-offset-2');
+        btn.classList.add('border-gray-200');
+      });
+      if (clickedButton) {
+        clickedButton.classList.remove('border-gray-200');
+        clickedButton.classList.add('border-primary', 'ring-2', 'ring-primary', 'ring-offset-2');
+      }
+    }
+
+    function showTab(tabName) {
+      document.querySelectorAll('.tab-content').forEach(function(content) {
+        content.classList.add('hidden');
+      });
+      document.querySelectorAll('[id$="-tab"]').forEach(function(tab) {
+        tab.classList.remove('text-primary', 'border-b-2', 'border-primary', 'bg-gray-50');
+        tab.classList.add('text-gray-600');
+      });
+      var selectedContent = document.getElementById(tabName + '-content');
+      if (selectedContent) selectedContent.classList.remove('hidden');
+      var activeTab = document.getElementById(tabName + '-tab');
+      if (activeTab) {
+        activeTab.classList.remove('text-gray-600');
+        activeTab.classList.add('text-primary', 'border-b-2', 'border-primary', 'bg-gray-50');
+      }
+    }
+
+    function openLightbox() {
+      var lightbox = document.getElementById('lightbox');
+      var lightboxImage = document.getElementById('lightboxImage');
+      var mainImage = document.getElementById('mainImage').querySelector('img');
+      if (lightbox && lightboxImage && mainImage && galleryData.length > 0) {
+        currentLightboxIndex = galleryData.findIndex(function(img) { return img.src === mainImage.src; });
+        if (currentLightboxIndex === -1) currentLightboxIndex = 0;
+        lightboxImage.src = galleryData[currentLightboxIndex].src;
+        lightboxImage.alt = galleryData[currentLightboxIndex].alt;
+        updateImageCounter();
+        lightbox.classList.remove('lightbox-hidden');
+        lightbox.classList.add('lightbox-visible');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeLightbox() {
+      var lightbox = document.getElementById('lightbox');
+      if (lightbox) {
+        lightbox.classList.remove('lightbox-visible');
+        lightbox.classList.add('lightbox-hidden');
+        document.body.style.overflow = 'auto';
+      }
+    }
+
+    function previousLightboxImage() {
+      if (galleryData.length === 0) return;
+      currentLightboxIndex = currentLightboxIndex === 0 ? galleryData.length - 1 : currentLightboxIndex - 1;
+      updateLightboxImage();
+    }
+
+    function nextLightboxImage() {
+      if (galleryData.length === 0) return;
+      currentLightboxIndex = currentLightboxIndex === galleryData.length - 1 ? 0 : currentLightboxIndex + 1;
+      updateLightboxImage();
+    }
+
+    function updateLightboxImage() {
+      var lightboxImg = document.getElementById('lightboxImage');
+      if (lightboxImg && galleryData.length > 0) {
+        lightboxImg.src = galleryData[currentLightboxIndex].src;
+        lightboxImg.alt = galleryData[currentLightboxIndex].alt;
+        updateImageCounter();
+      }
+    }
+
+    function updateImageCounter() {
+      var counter = document.getElementById('imageCounter');
+      if (counter && galleryData.length > 0) {
+        counter.textContent = (currentLightboxIndex + 1) + ' / ' + galleryData.length;
+      }
+    }
+
+    // Initialize gallery data
+    var mainImg = document.querySelector('#mainImage img');
+    var thumbnails = document.querySelectorAll('.thumbnail-btn');
+
+    if (mainImg) {
+      galleryData.push({ src: mainImg.src, alt: mainImg.alt });
+    }
+    thumbnails.forEach(function(btn) {
+      var src = btn.dataset.src;
+      var alt = btn.dataset.alt;
+      if (src && !galleryData.find(function(img) { return img.src === src; })) {
+        galleryData.push({ src: src, alt: alt || '' });
+      }
+    });
+
+    // Thumbnail click handlers
+    thumbnails.forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        var target = e.currentTarget;
+        changeMainImage(target.dataset.src || '', target.dataset.alt || '', target);
+      });
+    });
+
+    // Lightbox open - click on main image
+    document.getElementById('mainImage').addEventListener('click', function() { openLightbox(); });
+
+    // Lightbox controls
+    document.getElementById('lightbox-close').addEventListener('click', function(e) { e.stopPropagation(); closeLightbox(); });
+    document.getElementById('lightbox-prev').addEventListener('click', function(e) { e.stopPropagation(); previousLightboxImage(); });
+    document.getElementById('lightbox-next').addEventListener('click', function(e) { e.stopPropagation(); nextLightboxImage(); });
+
+    // Close lightbox when clicking on the backdrop
+    document.getElementById('lightbox').addEventListener('click', function(e) {
+      if (e.target === document.getElementById('lightbox')) closeLightbox();
+    });
+
+    // Eliminar filas vacías de la tabla de especificaciones
+    document.querySelectorAll('.especificaciones-tecnicas tr').forEach(function(row) {
+      var cells = row.querySelectorAll('th, td');
+      var allEmpty = Array.from(cells).every(function(cell) {
+        return cell.textContent.trim() === '';
+      });
+      if (allEmpty) row.style.display = 'none';
+    });
+
+    // Tabs
+    document.getElementById('description-tab').addEventListener('click', function() { showTab('description'); });
+    document.getElementById('specifications-tab').addEventListener('click', function() { showTab('specifications'); });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+      var lightbox = document.getElementById('lightbox');
+      if (lightbox && lightbox.classList.contains('lightbox-visible')) {
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') previousLightboxImage();
+        if (e.key === 'ArrowRight') nextLightboxImage();
+      }
+    });
+  })();
+</script>

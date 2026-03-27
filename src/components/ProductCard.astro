@@ -1,0 +1,72 @@
+---
+import type { WPProduct } from '@/lib/wordpress';
+
+interface Props {
+  product: WPProduct;
+}
+
+const { product } = Astro.props;
+
+const featuredImage = product.imagen_url?.full
+  || product.imagen_url?.medium
+  || product.images?.[0]?.src
+  || 'https://via.placeholder.com/400x400?text=Sin+Imagen';
+
+const altText = product.images?.[0]?.alt
+  || product.name
+  || product.title?.rendered
+  || 'Producto';
+
+const productTitle = product.name || product.title?.rendered || 'Sin título';
+const productExcerpt = product.descripcion_corta || product.short_description || product.excerpt?.rendered || '';
+---
+
+<article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
+  <a href={`/muestra/producto/${product.slug}/`} class="block">
+    <div class="product-card-image overflow-hidden bg-gray-100">
+      <img
+        src={featuredImage}
+        alt={altText}
+        class="w-full h-full object-contain hover:scale-105 transition-transform duration-300"
+        loading="lazy"
+      />
+    </div>
+
+    <div class="p-4">
+      <h3 class="text-lg font-semibold text-gray-800 mb-2 line-clamp-2">
+        {productTitle}
+      </h3>
+
+      {productExcerpt && (
+        <div
+          class="text-gray-600 text-sm line-clamp-3 mb-3"
+          set:html={productExcerpt}
+        />
+      )}
+
+      <div class="flex items-center justify-between">
+        <span class="text-secondary font-medium hover:text-secondary-dark">
+          Ver detalles →
+        </span>
+      </div>
+    </div>
+  </a>
+</article>
+
+<style>
+  .product-card-image {
+    aspect-ratio: 300 / 220;
+  }
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

@@ -1,0 +1,198 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import TitleBreadcrumb from '@/components/TitleBreadcrumb.astro';
+import { getCategoryBySlug, getProductsByCategory } from '@/lib/wordpress';
+
+const categorySlug = 'camiones-de-servicio';
+const category = await getCategoryBySlug(categorySlug);
+const categoryId = category?.id ?? null;
+
+const products = categoryId ? await getProductsByCategory(categoryId) : [];
+
+const stripHtml = (html: string = '') =>
+  html
+    ?.replace(/<\/?.+?>/g, '')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+const productCards = products.map((product) => ({
+  ...product,
+  excerpt: stripHtml(product.descripcion_corta || product.short_description || product.excerpt?.rendered || ''),
+  featuredImage:
+    product.imagen_url?.full || product.imagen_url?.medium ||
+    product.images?.[0]?.src ||
+    '/muestra/images/productos/camiones-servicio.jpg',
+}));
+
+const heroTitle = category?.name || 'Camiones de servicio';
+const heroSubtitle = stripHtml(category?.description) ||
+  'Fabricamos camiones de servicio aeroportuario a medida: combustible, agua potable, sanitarios, abastecimiento y apoyo en pista.';
+
+const highlightStats = [
+  { label: 'Capacidad de estanques', value: '3.000 – 25.000 L' },
+  { label: 'Configuraciones posibles', value: 'Combustible · Agua · Vacío · Mixtos' },
+  { label: 'Certificaciones', value: 'DGAC · API · ASME IX' },
+];
+
+const valueProps = [
+  {
+    title: 'Diseño modular',
+    description: 'Estructuras reforzadas y estanques dimensionados según normativa aeronáutica para abastecimiento seguro en plataforma.'
+  },
+  {
+    title: 'Operación eficiente',
+    description: 'Bombas, medidores y paneles de control de fácil acceso para acelerar las ventanas de abastecimiento en pista.'
+  },
+  {
+    title: 'Soporte integral',
+    description: 'Ingeniería, fabricación, mantención y repuestos con respaldo local para asegurar continuidad operacional.'
+  }
+];
+---
+
+<Layout title={`${heroTitle} - VIMAN`} description={heroSubtitle}>
+  <Header />
+
+  <main class="min-h-screen bg-white">
+    <TitleBreadcrumb title={heroTitle} subtitle={heroSubtitle} />
+
+    <section class="container mx-auto px-4 py-16 grid gap-12 lg:grid-cols-[1.1fr_0.9fr] items-center">
+      <div>
+        <p class="text-secondary uppercase text-sm font-semibold tracking-[0.3em] mb-4">Especialistas en camiones aeroportuarios</p>
+        <h2 class="text-3xl md:text-4xl font-bold text-primary mb-6">
+          Soluciones integrales para combustibles, agua potable, sanitarios y apoyo en pista
+        </h2>
+        <p class="text-gray-600 leading-relaxed text-lg mb-8">
+          Diseñamos y fabricamos camiones de servicio que cumplen las exigencias de aeropuertos y aerolíneas: estructuras robustas,
+          estanques certificados, bombas de alto desempeño y sistemas de control que facilitan las operaciones en plataforma.
+        </p>
+        <div class="grid gap-4 sm:grid-cols-3">
+          {highlightStats.map((stat) => (
+            <div class="bg-[#F5F8FF] rounded-xl p-4 text-center shadow-sm">
+              <p class="text-primary font-semibold text-sm tracking-wide uppercase">{stat.label}</p>
+              <p class="text-xl text-gray-800 mt-2 font-bold">{stat.value}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div class="rounded-3xl overflow-hidden shadow-xl border border-gray-100">
+        <img
+          src="/muestra/images/productos/camiones-servicio-hero.jpg"
+          alt="Camión de servicio aeroportuario VIMAN"
+          class="w-full h-full object-cover"
+          loading="lazy"
+        />
+      </div>
+    </section>
+
+    <section class="bg-gray-50 py-16">
+      <div class="container mx-auto px-4">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <p class="text-secondary uppercase text-sm font-semibold tracking-[0.3em]">Nuestros Productos</p>
+          <h3 class="text-3xl md:text-4xl font-bold text-primary mb-4">Camiones de servicio disponibles</h3>
+          <p class="text-gray-600 text-base">
+            Todos los modelos se construyen bajo pedido, con configuraciones de estanque, bombas, caudalímetros y accesorios adaptados
+            a cada operación aeroportuaria.
+          </p>
+        </div>
+
+        {productCards.length === 0 ? (
+          <div class="bg-white border border-dashed border-gray-300 rounded-2xl p-10 text-center">
+            <p class="text-lg text-gray-600">No hay camiones disponibles en esta categoría por el momento.</p>
+            <p class="text-gray-500 mt-2">Contáctanos para recibir propuestas personalizadas.</p>
+          </div>
+        ) : (
+          <div class="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+            {productCards.map((product) => (
+              <article class="bg-white rounded-2xl shadow-md hover:shadow-xl transition overflow-hidden flex flex-col">
+                <div class="aspect-[300/220] bg-gray-100 overflow-hidden">
+                  <img
+                    src={product.featuredImage}
+                    alt={product.name}
+                    class="w-full h-full object-contain"
+                    loading="lazy"
+                  />
+                </div>
+                <div class="p-6 flex flex-col flex-1">
+                  <p class="text-xs uppercase tracking-[0.3em] text-secondary font-semibold mb-2">Camión de servicio</p>
+                  <h4 class="text-2xl font-bold text-primary mb-3">{product.name}</h4>
+                  {product.excerpt ? (
+                    <p class="text-gray-600 leading-relaxed text-sm mb-6 flex-1">{product.excerpt}</p>
+                  ) : (
+                    <p class="text-gray-500 text-sm mb-6 flex-1">Pronto añadiremos más detalles de este modelo.</p>
+                  )}
+                  <div class="mt-auto flex items-center justify-between">
+                    <a
+                      href={`/muestra/producto/${product.slug}/`}
+                      class="text-secondary font-semibold hover:text-secondary-dark transition"
+                    >
+                      Ver detalles →
+                    </a>
+                    <span class="text-sm text-gray-400">ID #{product.id}</span>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+
+    <section class="container mx-auto px-4 py-16 grid gap-10 lg:grid-cols-2 items-center">
+      <div class="space-y-6">
+        <p class="text-secondary uppercase text-sm font-semibold tracking-[0.3em]">¿Por qué elegir VIMAN?</p>
+        <h3 class="text-3xl md:text-4xl font-bold text-primary">
+          Ingeniería local con estándares internacionales
+        </h3>
+        <p class="text-gray-600 text-lg leading-relaxed">
+          Los camiones de servicio VIMAN se fabrican en Chile con procesos certificados, asegurando disponibilidad de repuestos,
+          asistencia rápida y adaptación a normativas locales e internacionales.
+        </p>
+        <ul class="space-y-4">
+          {valueProps.map((prop) => (
+            <li class="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm">
+              <h4 class="text-xl font-semibold text-primary">{prop.title}</h4>
+              <p class="text-gray-600 text-base mt-2">{prop.description}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="rounded-[32px] overflow-hidden shadow-2xl border border-gray-100">
+        <img
+          src="/muestra/images/productos/camion-servicio-operacion.jpg"
+          alt="Operación de camión de servicio aeroportuario"
+          class="w-full h-full object-cover"
+          loading="lazy"
+        />
+      </div>
+    </section>
+
+    <section class="bg-[#E4EFFC] py-16">
+      <div class="container mx-auto px-4 text-center">
+        <p class="text-secondary uppercase text-sm font-semibold tracking-[0.3em]">¿Necesitas un camión especial?</p>
+        <h3 class="text-3xl md:text-4xl font-bold text-primary mb-4">Trabajemos tu proyecto aeroportuario</h3>
+        <p class="text-gray-700 text-lg max-w-3xl mx-auto mb-8">
+          Cuéntanos la operación que necesitas cubrir y diseñaremos un camión de servicio con el equipamiento, certificaciones y
+          respaldo que exige tu aerolínea o aeropuerto.
+        </p>
+        <a
+          href="/muestra/contacto/"
+          class="inline-flex items-center justify-center bg-secondary text-white px-10 py-4 rounded-full text-lg font-semibold hover:bg-secondary-dark transition"
+        >
+          Solicitar asesoría
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+
+  <style>
+    .text-primary { color: #1E2A5A; }
+    .text-secondary { color: #F29400; }
+    .text-secondary-dark { color: #c97700; }
+  </style>
+</Layout>

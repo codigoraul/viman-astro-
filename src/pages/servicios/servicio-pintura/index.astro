@@ -1,0 +1,123 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import TitleBreadcrumb from '@/components/TitleBreadcrumb.astro';
+---
+
+<Layout title="VIMAN - Servicio de Pintura">
+  <Header />
+
+  <main class="min-h-screen bg-white">
+    <TitleBreadcrumb
+      title="Servicio de Pintura"
+      subtitle="Restauración completa y recubrimientos que prolongan la vida útil de tus equipos"
+    />
+
+    <section class="container mx-auto px-4 py-16 space-y-16">
+      <!-- Intro -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <span class="text-secondary font-semibold tracking-[0.3em] uppercase text-sm">Servicios de mantención</span>
+          <h1 class="text-3xl lg:text-[34px] font-bold text-primary mt-4 mb-6">Servicios de Mantención Industrial: Servicio de Pintura</h1>
+          <p class="text-gray-700 text-base leading-relaxed mb-4">
+            Nuestra experiencia en la fabricación de equipos y nuestra capacidad técnica nos permite entender de mejor manera el eventual deterioro que pueda tener la pintura,
+            dado su uso y manejo en sus faenas de trabajo.
+          </p>
+          <p class="text-gray-700 text-base leading-relaxed">
+            Ofrecemos servicio de pintura para la mantención o reparación de la capa externa de la estructura de estanques, camiones y maquinaria para el mejoramiento visual
+            y protección contra la corrosión y deterioro del ambiente.
+          </p>
+        </div>
+        <div>
+          <div class="rounded-2xl overflow-hidden shadow-xl">
+            <img
+              src="/muestra/images/servicios/pintura-industrial.jpg"
+              alt="Técnico aplicando pintura industrial"
+              class="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Restauración flota -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="order-2 lg:order-1">
+          <div class="rounded-2xl overflow-hidden shadow-xl">
+            <img
+              src="/muestra/images/servicios/servicio-pintura/mantenimiento-camiones.jpg"
+              alt="Restauración de flota"
+              class="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+        <div class="order-1 lg:order-2">
+          <h2 class="text-3xl font-bold text-primary mb-4">Mantenimiento de flota de camiones – Restauración</h2>
+          <p class="text-gray-700 mb-4">
+            Por el desgaste natural de la pintura, por uso o trabajo, la superficie se tiende a quemar y se debe volver a pintar, restaurando rótulos y gráficas corporativas.
+            Para ello realizamos:
+          </p>
+          <ul class="space-y-2 text-gray-700 list-disc ml-5">
+            <li>Tratamiento de superficie.</li>
+            <li>Lavado con detergente.</li>
+            <li>Secado.</li>
+            <li>Aplicación de pintura base.</li>
+            <li>Pintura de definición.</li>
+            <li>Colocación de publicidad y rótulos.</li>
+          </ul>
+        </div>
+      </div>
+       <!-- Sala de pintura -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center bg-white rounded-2xl  p-10">
+        <div>
+          <h2 class="text-3xl font-bold text-primary mb-4">Sala de pintura</h2>
+          <p class="text-gray-700 text-lg leading-relaxed">
+            Viman SPA cuenta con una sala de pintura y equipamiento avanzado que utiliza recubrimientos de alta calidad, garantizando un producto final que cumpla con las
+            expectativas del cliente.
+          </p>
+        </div>
+        <div>
+          <div class="rounded-xl overflow-hidden shadow-2xl">
+            <img
+              src="/muestra/images/servicios/servicio-pintura/sala-pintura.jpg"
+              alt="Sala de pintura Viman"
+              class="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+      </div>
+      <!-- Protocolo -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        <div class="space-y-6">
+          <div class="rounded-2xl overflow-hidden shadow-xl">
+            <img
+              src="/muestra/images/servicios/servicio-pintura/aplicacion-recubrimiento.jpg"
+              alt="Aplicación de recubrimiento"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          
+        </div>
+        <div>
+          <h2 class="text-3xl font-bold text-primary mb-4">Protocolo de aplicación de recubrimiento</h2>
+          <ol class="list-decimal ml-5 space-y-3 text-gray-700">
+            <li>Preparación y limpieza de la superficie mediante solución desengrasante y lavado a presión.</li>
+            <li>Limpieza mecánica para la remoción de óxido y/o herrumbre de pintura existente.</li>
+            <li>Reinspección visual de la superficie de la estructura.</li>
+            <li>Aplicación de recubrimiento anticorrosivo epóxido.</li>
+            <li>Aplicación de revestimiento de terminación.</li>
+          </ol>
+          <ul class="space-y-2 text-gray-700 list-disc ml-5 mt-6">
+            <li>Pintura garantizada por 12 meses.</li>
+            <li>Se certifica la cantidad de micras de pintura.</li>
+          </ul>
+        </div>
+        
+      </div>
+
+      
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

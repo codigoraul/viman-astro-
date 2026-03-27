@@ -1,0 +1,354 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import TitleBreadcrumb from '@/components/TitleBreadcrumb.astro';
+---
+
+<Layout title="VIMAN - Maestranza">
+  <Header />
+  
+  <main class="min-h-screen">
+    <TitleBreadcrumb 
+      title="Maestranza" 
+      subtitle="Fabricación y reparación de estanques y equipos industriales"
+    />
+
+    <!-- Main Content -->
+    <section class="container mx-auto px-4 py-16">
+      <!-- First Section: Image Left, Text Right -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+        <div class="order-2 lg:order-1">
+          <div class="rounded-lg overflow-hidden p-8 bg-gray-50">
+            <img 
+              src="/muestra/images/servicios/maestranza/fabricacion-de-estructura-metalica.jpg" 
+              alt="Fabricación de estructuras Metálicas" 
+              class="w-full"
+            />
+          </div>
+        </div>
+        <div class="order-1 lg:order-2">
+          <h2 class="text-3xl font-bold text-primary mb-6">
+             Fabricación de estructuras Metálicas </h2>
+          <p class="text-gray-700 text-base leading-relaxed mb-6">
+            Desarrollamos equipos industriales de alta fidelidad a través de procesos de ingeniería muy bien estructurados y definidos que permiten obtener resultados de alta calidad garantizada.
+          </p>
+          <ul class="space-y-3 text-gray-700">
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-secondary shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-base">Garantizamos calidad con certificaciones.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-secondary shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-base">Contamos con servicio técnico reconocido por su velocidad de respuesta.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-secondary shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-base">Nos esforzamos por cumplir con todos los plazos.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-secondary shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-base">Integramos nuestros equipos con insumos y componentes de marcas reconocidas a nivel mundial.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Second Section: Text Left, Image Right -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+        <div class="order-1">
+          <h2 class="text-3xl font-bold text-primary mb-6">Fabricación y montaje de estanques</h2>
+          <p class="text-gray-700 text-base leading-relaxed mb-6">
+            Fabricamos estanque para distintas aplicaciones, tanto para camiones de combustibles o aljibes como para sistemas de vacío. Fabricación de estanques estacionarios para diferentes fluidos y componentes, con certificación correspondiente para diferentes áreas.
+          </p>
+          <ul class="space-y-3 text-gray-700">
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-secondary shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-base">Fabricación de estanques de combustible para superficie.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-secondary shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-base">Fabricación de estanques de combustible subterráneos.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-secondary shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-base">Fabricación de estanques de combustible para camión.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-secondary shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-base">Fabricación de estanques aljibes.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-secondary shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-base">Fabricación de estanques aljibes en acero inoxidable.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-secondary shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-base">Fabricación de estanques atmosféricos para camión limpia fosas.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-secondary shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-base">Fabricación de escaleras metálicas para áreas aeroportuarias o de logística.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-secondary shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-base">Fabricación de carros de arrastre.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-secondary shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-base">Fabricación de estanques para diferentes usos.</span>
+            </li>
+          </ul>
+        </div>
+        <div class="order-2">
+          <div class="rounded-lg overflow-hidden p-8 bg-gray-50">
+            <img 
+              src="/muestra/images/servicios/maestranza/fabricacion-y-montaje-de-estanques.png" 
+              alt="Fabricación y montaje de estanques" 
+              class="w-full"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Third Section: Image Left, Text Right -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+        <div class="order-2 lg:order-1">
+          <div class="rounded-lg overflow-hidden p-8 bg-gray-50">
+            <img 
+              src="/muestra/images/servicios/maestranza/fabricacion-repuestos-piezas.jpg" 
+              alt="Fabricación de repuestos y piezas" 
+              class="w-full"
+            />
+          </div>
+        </div>
+        <div class="order-1 lg:order-2">
+          <h2 class="text-3xl font-bold text-primary mb-6">Fabricación de repuestos y piezas</h2>
+          <p class="text-gray-700 text-base leading-relaxed mb-6">
+            Desarrollamos y fabricamos piezas y repuestos especiales para maquinaria industrial y equipos aeroportuarios. Contamos con capacidad para producir componentes customizados según especificaciones técnicas de nuestros clientes.
+          </p>
+          <ul class="space-y-3 text-gray-700">
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-secondary shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-base">Fabricación de piezas especiales bajo pedido.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-secondary shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-base">Repuestos para maquinaria industrial.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-secondary shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-base">Componentes para equipos aeroportuarios.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-secondary shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-base">Piezas de desgaste y recambio.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-secondary shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-base">Mantenimiento de stock de repuestos críticos.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Fourth Section: Text Left, Image Right -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+        <div class="order-1">
+          <h2 class="text-3xl font-bold text-primary mb-6">Estructura y soldadura en acero inoxidable</h2>
+          <p class="text-gray-700 text-base leading-relaxed mb-6">
+            Especialistas en la fabricación de estructuras metálicas utilizando acero inoxidable de alta calidad. Contamos con procesos certificados y personal técnico calificado para garantizar la máxima durabilidad y resistencia en cada proyecto.
+          </p>
+          <p class="text-gray-700 text-base leading-relaxed">
+            Nuestros servicios de soldadura en acero inoxidable cumplen con los más altos estándares de calidad, ideal para aplicaciones en industrias alimentarias, farmacéuticas y químicas donde la higiene y resistencia a la corrosión son fundamentales.
+          </p>
+        </div>
+        <div class="order-2">
+          <div class="rounded-lg overflow-hidden p-8 bg-gray-50">
+            <img 
+              src="/muestra/images/servicios/maestranza/estructura-y-soldadura-en-acero-inoxidable.jpg" 
+              alt="Estructura y soldadura en acero inoxidable" 
+              class="w-full"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Fifth Section: Image Left, Text Right -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+        <div class="order-2 lg:order-1">
+          <div class="rounded-lg overflow-hidden p-8 bg-gray-50">
+            <img 
+              src="/muestra/images/servicios/maestranza/maquinas-en-taller.jpg" 
+              alt="Máquinas en taller Maestranza" 
+              class="w-full"
+            />
+          </div>
+        </div>
+        <div class="order-1 lg:order-2">
+          <h2 class="text-3xl font-bold text-primary mb-6">Máquinas en taller Maestranza</h2>
+          <p class="text-gray-700 text-base leading-relaxed mb-6">
+            Contamos con un gran espacio útil para el desarrollo de gran número de trabajos de maestranza desde el diseño y la ingeniería preliminar hasta el proceso de fabricación, el montaje y la puesta en marcha.
+          </p>
+          <p class="text-gray-700 text-base leading-relaxed mb-6">Contamos con máquinas como:</p>
+          <ul class="space-y-3 text-gray-700">
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-secondary shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-base">Guillotina plegadora​</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-secondary shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-base">Torno tradicional</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-secondary shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-base">Equipo de soldadura MIC TIC y arco​</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-secondary shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-base">Equipos de corte Oxicorte​</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-secondary shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-base">Puente grúa​</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-secondary shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-base">Taller habilitado para varios camiones, 5 camiones en línea de producción en el momento.​</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-secondary shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-base">Sala de pintura acondicionada​</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-secondary shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-base">Personal calificado soldador certificado.​</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-secondary shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-base">Mecánico hidráulico y electromecánico.​</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Contact Section -->
+      <div class="bg-[#E4EFFC] p-8 rounded-lg text-center">
+        <h4 class="text-2xl font-bold text-primary mb-4">¿Necesita un presupuesto?</h4>
+        <p class="text-gray-700 text-base mb-6">Contáctenos para evaluar su proyecto y entregarle una cotización personalizada.</p>
+        <a 
+          href="/muestra/contacto/" 
+          class="inline-block bg-secondary text-white px-8 py-4 rounded-lg font-semibold hover:bg-secondary-dark transition text-base"
+        >
+          Solicitar Cotización
+        </a>
+      </div>
+    </section>
+
+    <!-- Related Services -->
+    <section class="bg-gray-50 py-16">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-primary mb-12 text-center">Otros Servicios</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <a href="/muestra/servicios/" class="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition text-center group">
+            <div class="h-32 bg-gray-200 rounded-lg mb-6 flex items-center justify-center">
+              <span class="text-gray-500">Imagen Servicio Técnico</span>
+            </div>
+            <h3 class="text-xl font-bold text-primary mb-3 group-hover:text-secondary transition">Servicio Técnico</h3>
+            <p class="text-gray-600">Mantención y reparación de equipos</p>
+          </a>
+          <a href="/muestra/servicios/" class="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition text-center group">
+            <div class="h-32 bg-gray-200 rounded-lg mb-6 flex items-center justify-center">
+              <span class="text-gray-500">Imagen Mantención Industrial</span>
+            </div>
+            <h3 class="text-xl font-bold text-primary mb-3 group-hover:text-secondary transition">Mantención Industrial</h3>
+            <p class="text-gray-600">Servicios integrales de mantención</p>
+          </a>
+          <a href="/muestra/servicios/" class="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition text-center group">
+            <div class="h-32 bg-gray-200 rounded-lg mb-6 flex items-center justify-center">
+              <span class="text-gray-500">Imagen Pintura Industrial</span>
+            </div>
+            <h3 class="text-xl font-bold text-primary mb-3 group-hover:text-secondary transition">Pintura Industrial</h3>
+            <p class="text-gray-600">Protección contra corrosión</p>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+
+  <style>
+    /* Estilos para títulos azules */
+    .text-primary.font-bold {
+      font-weight: 600 !important;
+    }
+    
+    .text-3xl {
+      font-size: 34px !important;
+    }
+    
+    /* Estilos para títulos de servicios y productos */
+    .text-xl.font-bold.text-primary {
+      font-size: 1.55rem !important;
+    }
+    
+    .text-[28px].font-bold.text-primary {
+      font-size: 1.55rem !important;
+    }
+  </style>
+</Layout>

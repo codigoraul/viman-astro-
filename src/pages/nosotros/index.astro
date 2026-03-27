@@ -1,0 +1,289 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import TitleBreadcrumb from '@/components/TitleBreadcrumb.astro';
+---
+
+<Layout title="VIMAN - Nosotros">
+  <Header />
+  
+  <main class="min-h-screen bg-white">
+    <TitleBreadcrumb 
+      title="Nosotros" 
+      subtitle="Conoce nuestra empresa y trayectoria"
+    />
+
+    <section class="nosotros-wrapper">
+      <div class="nosotros-hero">
+        <div class="nosotros-hero__image">
+          <img src="/muestra/images/nosotros/nosotros-bg.jpg" alt="Equipo VIMAN" loading="lazy" />
+        </div>
+        <div class="nosotros-hero__content">
+          <span class="nosotros-eyebrow">Nuestra Empresa</span>
+          <h1>Empresa familiar enfocados en la ingeniería industrial desde 1993</h1>
+          <p>
+            Somos una empresa familiar enfocada en la ingeniería industrial desde 1993. Nos dedicamos a brindar soluciones a múltiples industrias del mercado.
+            Construimos equipos industriales de máxima calidad enfocados en los requerimientos de rutina de nuestros clientes, para el apoyo y suministro en sus
+            estaciones de trabajo en la industria nacional.
+          </p>
+        </div>
+      </div>
+
+      <div class="nosotros-columns">
+        <article>
+          <h2>Nuestra Misión</h2>
+          <p>
+            Buscar la satisfacción de nuestros clientes desarrollando servicios y productos con alto nivel de calidad y tecnología. Lograr una constante
+            actualización y adaptación a los cambios del mercado, desarrollando soluciones adecuadas y que se ajustan a cada requerimiento.
+          </p>
+        </article>
+        <article>
+          <h2>Nuestra Visión</h2>
+          <p>
+            Queremos convertirnos en un referente importante en el mercado de equipos industriales y expandir nuestro trabajo hacia Latinoamérica, enfocándonos
+            en la alta calidad y tecnología de nuestros productos y servicios.
+          </p>
+        </article>
+      </div>
+
+      <div class="nosotros-historia">
+        <div class="historia-text">
+          <span class="nosotros-eyebrow">Nosotros</span>
+          <h2>Nuestra Historia</h2>
+          <p>
+            Somos una empresa familiar que inició sus actividades en el año 1993 con la inquietud de satisfacer los requerimientos en el mercado de equipos de apoyo
+            en terreno en el aeropuerto de Santiago. Desde entonces nos hemos enfocado y especializado en el diseño y fabricación de equipos industriales para
+            múltiples industrias, tanto para el sector aeroportuario como para industrias de combustibles e higiene ambiental.
+          </p>
+          <p>
+            Construimos una política de empresa que se esfuerza en mantener altos estándares de calidad y aplicación de tecnología en nuestros procesos para garantizar
+            alta calidad de nuestros equipos y la mejor respuesta de nuestro servicio técnico.
+          </p>
+        </div>
+        <div class="historia-image">
+          <img src="/muestra/images/nosotros/nuestra-historia.jpg" alt="Camión VIMAN abasteciendo avión" loading="lazy" />
+        </div>
+      </div>
+
+      <div class="nosotros-enfoque">
+        <div class="enfoque-content">
+          <span class="nosotros-eyebrow">Nuestro Enfoque</span>
+          <h2>Construimos equipos industriales con calidad certificada</h2>
+
+          <div class="tabs">
+            <button class="tab-button active" data-tab="calidad">Calidad</button>
+            <button class="tab-button" data-tab="confianza">Confianza</button>
+            <button class="tab-button" data-tab="tecnologia">Tecnología</button>
+            <button class="tab-button" data-tab="certificaciones">Certificaciones</button>
+          </div>
+
+          <div class="tab-panels">
+            <div class="tab-panel active" data-panel="calidad">
+              <p>
+                Nos enfocamos principalmente en la calidad de nuestros procesos de ingeniería, desde el diseño, la fabricación, el montaje y la puesta en marcha de
+                nuestros equipos. Contamos con un equipo altamente calificado, operando bajo las normas vigentes para el diseño y fabricación de nuestros equipos.
+                Contamos con personal técnico especializado en mecánica y electricidad industrial, ingeniería hidráulica e industrial.
+              </p>
+            </div>
+            <div class="tab-panel" data-panel="confianza">
+              <p>
+                Contamos con un servicio personalizado de postventa, generando una comunicación efectiva y eficiente en función de las necesidades de nuestros clientes.
+                Brindamos servicio técnico reconocido por su velocidad de respuesta y nos esforzamos por cumplir con todos los plazos requeridos. Integramos nuestros
+                equipos con insumos y componentes de marcas reconocidas a nivel mundial.
+              </p>
+            </div>
+            <div class="tab-panel" data-panel="tecnologia">
+              <p>
+                También nos enfocamos en la aplicación de tecnología aplicada a la fabricación para entregar mayor garantía y velocidad en los procesos que utilizamos
+                para el desarrollo de nuestros equipos industriales.
+              </p>
+            </div>
+            <div class="tab-panel" data-panel="certificaciones">
+              <p>
+                Nos preocupamos de la calidad de nuestros productos y servicios, así como también por el cumplimiento de todos los requerimientos y estándares vigentes
+                para garantizar una mejora continua que otorgue una amplia satisfacción a las necesidades de todos nuestros clientes.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="enfoque-image">
+          <img src="/muestra/images/nosotros/nuestro-enfoque.jpg" alt="Equipo de ingeniería VIMAN" loading="lazy" />
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .nosotros-wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem 5rem;
+  }
+  .nosotros-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
+    gap: 4rem;
+    align-items: center;
+    margin-bottom: 4rem;
+  }
+  .nosotros-hero__image img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 30px 80px rgba(15, 23, 42, 0.16);
+    object-fit: cover;
+  }
+  .nosotros-eyebrow {
+    color: #F29400;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-size: 0.95rem;
+  }
+  .nosotros-hero__content h1 {
+    font-size: 28px;
+    color: #1E2A5A;
+    font-weight: 600;
+    margin: 1rem 0 1.5rem;
+    line-height: 1.2;
+  }
+  .nosotros-hero__content p {
+    color: #4B5563;
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+  .nosotros-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
+    border-radius: 8px;
+  }
+  .nosotros-columns article {
+    background: #fff;
+    border-radius: 8px;
+    padding: 2.5rem;
+    box-shadow: 0 25px 60px rgba(15, 23, 42, 0.08);
+    border: 1px solid rgba(30, 42, 90, 0.05);
+  }
+  .nosotros-columns h2 {
+    font-size: 1.5rem;
+    color: #1E2A5A;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  .nosotros-columns p {
+    color: #4B5563;
+    line-height: 1.7;
+  }
+  .nosotros-historia {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 3rem;
+    align-items: center;
+    margin: 5rem 0;
+  }
+  .historia-text h2 {
+    font-size: 2rem;
+    color: #1E2A5A;
+    font-weight: 700;
+    margin: 0.75rem 0 1.5rem;
+  }
+  .historia-text p {
+    color: #4B5563;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+  .historia-image img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 30px 60px rgba(15, 23, 42, 0.12);
+  }
+  .nosotros-enfoque {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 3rem;
+    align-items: center;
+    margin-top: 4rem;
+  }
+  .nosotros-enfoque h2 {
+    font-size: 2rem;
+    color: #1E2A5A;
+    font-weight: 700;
+    margin: 0.75rem 0 1.5rem;
+  }
+  .enfoque-content .tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  .tab-button {
+    flex: 1 1 calc(50% - 0.75rem);
+    min-width: 140px;
+    background: #F5F7FB;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    font-weight: 600;
+    color: #1E2A5A;
+    text-align: left;
+    transition: all 0.2s ease;
+  }
+  .tab-button.active {
+    background: #1E2A5A;
+    color: #fff;
+    border-color: #1E2A5A;
+  }
+  .tab-panels {
+    background: #fff;
+    border: 1px solid rgba(30, 42, 90, 0.1);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 20px 45px rgba(30, 42, 90, 0.08);
+  }
+  .tab-panel {
+    display: none;
+  }
+  .tab-panel.active {
+    display: block;
+  }
+  .tab-panel p {
+    color: #4B5563;
+    line-height: 1.8;
+  }
+  .enfoque-image img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 30px 60px rgba(15, 23, 42, 0.12);
+    object-fit: cover;
+  }
+  @media (max-width: 1024px) {
+    .nosotros-hero {
+      grid-template-columns: 1fr;
+    }
+    .tab-button {
+      flex: 1 1 100%;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.tab-button');
+    const panels = document.querySelectorAll('.tab-panel');
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const target = button.getAttribute('data-tab');
+
+        buttons.forEach((btn) => btn.classList.toggle('active', btn === button));
+        panels.forEach((panel) => {
+          panel.classList.toggle('active', panel.getAttribute('data-panel') === target);
+        });
+      });
+    });
+  });
+</script>

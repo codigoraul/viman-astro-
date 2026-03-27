@@ -1,0 +1,325 @@
+---
+interface Slide {
+  image: string;
+  title: string;
+  description: string;
+  link?: string;
+  buttonText?: string;
+  secondaryLink?: string;
+  secondaryButtonText?: string;
+  secondaryButtonColor?: string;
+}
+
+interface Props {
+  slides: Slide[];
+}
+
+const { slides } = Astro.props;
+---
+
+<div class="hero-slider-container">
+  <div class="swiper hero-swiper">
+    <div class="swiper-wrapper">
+      {slides.map((slide, index) => (
+        <div class="swiper-slide">
+          <div class="slide-content">
+            <div class="slide-image-wrapper">
+              <img
+                src={slide.image}
+                alt={slide.title}
+                class="slide-image"
+                loading={index === 0 ? "eager" : "lazy"}
+              />
+            </div>
+            <div class="slide-overlay"></div>
+            <div class="slide-text">
+              <h2 class="slide-title" set:html={slide.title.replace(/\n/g, '<br />')} />
+              <p class="slide-description">{slide.description}</p>
+              <div class="slide-buttons">
+                {slide.link && slide.buttonText && (
+                  <a href={slide.link} class="slide-btn slide-btn-white">
+                    {slide.buttonText}
+                  </a>
+                )}
+                {slide.secondaryLink && slide.secondaryButtonText && (
+                  <a
+                    href={slide.secondaryLink}
+                    class={`slide-btn slide-btn-color ${slide.secondaryButtonColor === 'blue' ? 'slide-btn-blue' : 'slide-btn-orange'}`}
+                  >
+                    {slide.secondaryButtonText}
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Paginación vertical derecha estilo viman.cl -->
+    <div class="swiper-pagination"></div>
+  </div>
+</div>
+
+<style>
+  .hero-slider-container {
+    width: 100%;
+    height: 730px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  @media (max-width: 768px) {
+    .hero-slider-container {
+      height: 650px;
+    }
+  }
+
+  .hero-swiper {
+    width: 100%;
+    height: 100%;
+  }
+
+  .swiper-slide {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .slide-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Wrapper para contener el efecto Ken Burns zoom */
+  .slide-image-wrapper {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .slide-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transform: scale(1);
+  }
+
+  /* Efecto Ken Burns - zoom lento en el slide activo */
+  :global(.swiper-slide-active) .slide-image {
+    animation: kenBurnsZoom 8s ease-out forwards;
+  }
+
+  @keyframes kenBurnsZoom {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1.1);
+    }
+  }
+
+  /* Overlay oscuro sobre la imagen */
+  .slide-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.15);
+    z-index: 2;
+  }
+
+  /* Texto centrado */
+  .slide-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    color: white;
+    text-align: center;
+    width: 90%;
+    max-width: 900px;
+  }
+
+  .slide-title {
+    font-size: 3.8rem;
+    font-weight: 600;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+  }
+
+  :global(.swiper-slide-active) .slide-title {
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+
+  .slide-description {
+    font-size: 1.225rem;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  :global(.swiper-slide-active) .slide-description {
+    animation: fadeInUp 0.8s ease-out 0.2s forwards;
+  }
+
+  /* Botones */
+  .slide-buttons {
+    display: flex;
+    gap: 1.2rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    opacity: 0;
+  }
+
+  :global(.swiper-slide-active) .slide-buttons {
+    animation: fadeInUp 0.8s ease-out 0.4s forwards;
+  }
+
+  .slide-btn {
+    display: inline-block;
+    padding: 1rem 2.8rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  /* Botón blanco (VER PRODUCTOS) */
+  .slide-btn-white {
+    background-color: white;
+    color: #1a1a1a;
+    border: 2px solid white;
+  }
+
+  .slide-btn-white:hover {
+    background-color: transparent;
+    color: white;
+  }
+
+  /* Botón naranja (CONTÁCTANOS) */
+  .slide-btn-orange {
+    background-color: #F5A623;
+    color: white;
+    border: 2px solid #F5A623;
+  }
+
+  .slide-btn-orange:hover {
+    background-color: #d4911e;
+    border-color: #d4911e;
+  }
+
+  /* Botón azul (CONTÁCTENOS) */
+  .slide-btn-blue {
+    background-color: #5DADE2;
+    color: white;
+    border: 2px solid #5DADE2;
+  }
+
+  .slide-btn-blue:hover {
+    background-color: #3498db;
+    border-color: #3498db;
+  }
+
+  @media (max-width: 768px) {
+    .slide-title {
+      font-size: 2.2rem;
+    }
+
+    .slide-description {
+      font-size: 0.95rem;
+    }
+
+    .slide-btn {
+      padding: 0.8rem 2rem;
+      font-size: 0.85rem;
+    }
+
+    .slide-buttons {
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Paginación vertical derecha - estilo viman.cl */
+  :global(.hero-swiper .swiper-pagination) {
+    right: 2rem !important;
+    left: auto !important;
+    top: 50% !important;
+    bottom: auto !important;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: auto !important;
+  }
+
+  :global(.hero-swiper .swiper-pagination-bullet) {
+    width: 10px;
+    height: 10px;
+    background-color: #fff;
+    opacity: 0.7;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    margin: 0 !important;
+  }
+
+  :global(.hero-swiper .swiper-pagination-bullet-active) {
+    opacity: 1;
+    background-color: #2B7CE9;
+  }
+</style>
+
+<script>
+  import Swiper from 'swiper';
+  import { Pagination, Autoplay } from 'swiper/modules';
+  import 'swiper/css';
+  import 'swiper/css/pagination';
+
+  const swiper = new Swiper('.hero-swiper', {
+    modules: [Pagination, Autoplay],
+    direction: 'horizontal',
+    effect: 'slide',
+    loop: true,
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: false,
+      pauseOnMouseEnter: true,
+    },
+    speed: 800,
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+  });
+</script>

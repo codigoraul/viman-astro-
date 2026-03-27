@@ -1,0 +1,207 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import TitleBreadcrumb from '@/components/TitleBreadcrumb.astro';
+
+const firstServices = [
+  {
+    title: 'Maestranza',
+    description:
+      'Fabricamos estanques para distintas aplicaciones, tanto para camiones de combustibles o aljibes como para sistemas de vacío.',
+    image: '/muestra/images/servicios/maestranza.jpg',
+    alt: 'Estanque fabricado por VIMAN',
+    url: '/muestra/servicios/maestranza/'
+  },
+  {
+    title: 'Servicio Técnico',
+    description:
+      'Contamos con la experiencia y capacidad técnica para la mantención y reparación de camiones, grúas, maquinaria industrial, generadores eléctricos y motores.',
+    image: '/muestra/images/servicios/servicio-tecnico.jpg',
+    alt: 'Equipo realizando servicio técnico',
+    url: '/muestra/servicios/servicio-tecnico/'
+  },
+  {
+    title: 'Mantención Industrial',
+    description:
+      'Nuestra capacidad técnica nos permite entender de mejor manera las eventuales fallas que pueda tener la maquinaria, dado su uso y manejo en sus faenas de trabajo.',
+    image: '/muestra/images/servicios/mantencion-industrial.jpg',
+    alt: 'Proceso de mantención industrial',
+    url: '/muestra/servicios/mantencion-industrial/'
+  }
+];
+
+const secondServices = [
+  {
+    title: 'Pintura Industrial',
+    description:
+      'Servicio de pintura para la mantención o reparación de la capa externa de la estructura de estanques, camiones y maquinaria para el mejoramiento visual y protección contra la corrosión.',
+    image: '/muestra/images/servicios/pintura-industrial.jpg',
+    alt: 'Aplicación de pintura industrial'
+  },
+  {
+    title: 'Servicios de inspección',
+    description:
+      'Somos maestranza calificada para la inspección periódica de estanques de combustibles para camiones por la Norma PC-110 SEC.',
+    image: '/muestra/images/servicios/servicio-de-Inspeccion.jpg',
+    alt: 'Camión en proceso de inspección'
+  }
+];
+---
+
+<Layout title="VIMAN - Servicios">
+  <Header />
+  
+  <main class="min-h-screen">
+    <TitleBreadcrumb 
+      title="Nuestros Servicios" 
+      subtitle="Soluciones integrales para el sector aeroportuario"
+    />
+
+    <section class="servicios-wrapper">
+      <div class="servicios-header">
+        <span class="servicios-eyebrow">Nuestros servicios</span>
+        <h2>Equipos para el sector aeroportuario</h2>
+        <div class="servicios-divider"></div>
+        <p>Soluciones integrales para la industria aeroportuaria y de transporte, con el respaldo de más de tres décadas de experiencia.</p>
+      </div>
+
+      <div class="servicios-grid servicios-grid--three">
+        {firstServices.map((service) => (
+          <article class="servicio-card">
+            {service.url ? (
+              <a href={service.url} class="servicio-card__link">
+                <div class="servicio-card__image">
+                  <img src={service.image} alt={service.alt} loading="lazy" />
+                </div>
+                <h3>{service.title}</h3>
+                <p>{service.description}</p>
+              </a>
+            ) : (
+              <>
+                <div class="servicio-card__image">
+                  <img src={service.image} alt={service.alt} loading="lazy" />
+                </div>
+                <h3>{service.title}</h3>
+                <p>{service.description}</p>
+              </>
+            )}
+          </article>
+        ))}
+      </div>
+
+      <div class="servicios-grid servicios-grid--two">
+        {secondServices.map((service) => (
+          <article class="servicio-card">
+            <div class="servicio-card__image">
+              <img src={service.image} alt={service.alt} loading="lazy" />
+            </div>
+            <h3>{service.title}</h3>
+            <p>{service.description}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .servicios-wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem 5rem;
+  }
+  .servicios-header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+  }
+  .servicios-eyebrow {
+    color: #F29400;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+  }
+  .servicios-header h2 {
+    font-size: clamp(2rem, 3vw, 2.5rem);
+    color: #1E2A5A;
+    font-weight: 700;
+    margin-top: 0.75rem;
+  }
+  .servicios-divider {
+    width: 70px;
+    height: 4px;
+    background: #1E2A5A;
+    margin: 1.25rem auto;
+    border-radius: 999px;
+  }
+  .servicios-header p {
+    color: #4B5563;
+    font-size: 1.05rem;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .servicios-grid {
+    display: grid;
+    gap: 2.5rem;
+  }
+  .servicios-grid--three {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    margin-bottom: 3rem;
+  }
+  .servicios-grid--two {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .servicios-grid--two::after {
+    content: '';
+    display: block;
+  }
+  .servicio-card {
+    text-align: center;
+  }
+  .servicio-card__link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+  .servicio-card__image {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 25px 70px rgba(15, 23, 42, 0.12);
+    background: #fff;
+  }
+  .servicio-card__image img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+  }
+  .servicio-card h3 {
+    color: #1E2A5A;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 1.5rem 0 0.75rem;
+  }
+  .servicio-card__link:hover h3 {
+    color: #F29400;
+  }
+  .servicio-card p {
+    color: #4B5563;
+    line-height: 1.7;
+  }
+  @media (max-width: 1024px) {
+    .servicios-grid--two {
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+    .servicios-grid--two::after {
+      display: none;
+    }
+  }
+  @media (max-width: 768px) {
+    .servicios-wrapper {
+      padding: 3rem 1.25rem 4rem;
+    }
+  }
+</style>

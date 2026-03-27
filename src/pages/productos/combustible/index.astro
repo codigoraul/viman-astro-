@@ -1,0 +1,176 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import TitleBreadcrumb from '@/components/TitleBreadcrumb.astro';
+import ProductCard from '@/components/ProductCard.astro';
+import { getCategories, getProductsByCategory } from '@/lib/wordpress';
+
+const fuelCategorySlugs = [
+  {
+    slug: 'camiones-combustible',
+    title: 'Camiones Combustible',
+    description:
+      'Fabricamos camiones para distintas aplicaciones, tanto para combustibles como para sistemas de vacío, con componentes certificados y soporte local.'
+  },
+  {
+    slug: 'estanque-subterraneo',
+    title: 'Estanque Combustible Subterráneo',
+    description:
+      'Soluciones subterráneas para almacenamiento seguro de combustibles líquidos con protocolos de inspección y control.'
+  },
+  {
+    slug: 'estanque-superficie',
+    title: 'Estanque Combustible Superficie',
+    description:
+      'Estanques superficiales diseñados para faenas industriales con altos estándares de seguridad y mantenimiento.'
+  }
+];
+
+const categories = await getCategories();
+
+const sections = await Promise.all(
+  fuelCategorySlugs.map(async (item) => {
+    const category = categories.find((cat: any) => cat.slug === item.slug);
+    const products = category ? await getProductsByCategory(category.id) : [];
+    return { ...item, category, products };
+  })
+);
+---
+
+<Layout title="VIMAN - Productos Combustible">
+  <Header />
+
+  <main class="min-h-screen bg-white">
+    <TitleBreadcrumb
+      title="Productos Combustible"
+      subtitle="Estanques y camiones para el manejo seguro de combustibles"
+    />
+
+    <section class="container mx-auto px-4 py-16 space-y-16">
+      <div class="section-heading">
+        <span>Nuestros productos</span>
+        <h1>Soluciones para suministro y almacenamiento</h1>
+        <p>
+          Camiones, estanques subterráneos y de superficie desarrollados en Chile para operaciones industriales y aeroportuarias.
+        </p>
+      </div>
+
+      {sections.map((section) => (
+        <div class="space-y-6">
+          <div class="category-header">
+            <div>
+              <span>{section.category?.name || section.title}</span>
+              <h2>{section.title}</h2>
+              <p>{section.description}</p>
+            </div>
+            <a href={`/muestra/categoria/${section.slug}/`} class="category-link">
+              Ver categoría completa
+            </a>
+          </div>
+
+          {section.products.length ? (
+            <div class="product-grid">
+              {section.products.map((product) => (
+                <ProductCard product={product} />
+              ))}
+            </div>
+          ) : (
+            <div class="empty-state">
+              <p>
+                Estamos cargando los productos de esta categoría. Escríbenos para recibir la ficha técnica y disponibilidad.
+              </p>
+              <a href="/muestra/contacto/" class="empty-state__cta">Solicitar información</a>
+            </div>
+          )}
+        </div>
+      ))}
+    </section>
+  </main>
+
+  <Footer />
+
+  <style>
+    .section-heading {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .section-heading span {
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: #f29400;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .section-heading h1 {
+      font-size: clamp(2rem, 4vw, 2.6rem);
+      color: #111d4a;
+      font-weight: 700;
+      margin: 0.75rem 0;
+    }
+    .section-heading p {
+      color: #4b5563;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .category-header {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    @media (min-width: 768px) {
+      .category-header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+    .category-header span {
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      font-size: 0.85rem;
+      color: #9ca3af;
+      font-weight: 600;
+    }
+    .category-header h2 {
+      font-size: clamp(1.8rem, 3vw, 2.2rem);
+      color: #111d4a;
+      font-weight: 700;
+      margin: 0.3rem 0;
+    }
+    .category-header p {
+      color: #4b5563;
+      max-width: 640px;
+    }
+    .category-link {
+      text-decoration: none;
+      color: #111d4a;
+      font-weight: 600;
+      border: 1px solid #e5e7eb;
+      padding: 0.75rem 1.25rem;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .empty-state {
+      border: 1px dashed #cbd5f5;
+      border-radius: 1.5rem;
+      padding: 2rem;
+      text-align: center;
+      background: #f9fbff;
+    }
+    .empty-state__cta {
+      display: inline-flex;
+      margin-top: 1rem;
+      background: #f29400;
+      color: #fff;
+      padding: 0.8rem 1.5rem;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+  </style>
+</Layout>

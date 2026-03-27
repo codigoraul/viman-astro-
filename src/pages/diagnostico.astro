@@ -1,0 +1,62 @@
+---
+import { getProducts, getCategories } from '@/lib/wordpress';
+
+const WORDPRESS_API_URL = import.meta.env.WORDPRESS_API_URL || 'http://localhost:10084/wp-json/wp/v2';
+
+let products: any[] = [];
+let categories: any[] = [];
+let rawProduct: any = null;
+
+try {
+  products = await getProducts(10);
+} catch (e) {
+  console.error('Error getProducts:', e);
+}
+
+try {
+  categories = await getCategories();
+} catch (e) {
+  console.error('Error getCategories:', e);
+}
+
+// Obtener un producto raw para inspección
+try {
+  const res = await fetch(`${WORDPRESS_API_URL}/productos?per_page=1`);
+  if (res.ok) {
+    const data = await res.json();
+    rawProduct = data[0] || null;
+  }
+} catch (e) {
+  console.error('Error raw fetch:', e);
+}
+
+const firstProduct = products[0];
+---
+
+<html>
+<head><title>Diagnóstico WP Local + ACF</title></head>
+<body style="font-family: monospace; padding: 20px; background: #1a1a2e; color: #e0e0e0;">
+  <h1 style="color: #FB9500;">Diagnóstico: WP Local + ACF</h1>
+  <p>API URL: <strong>{WORDPRESS_API_URL}</strong></p>
+
+  <h2 style="color: #4cc9f0;">1. Productos ({products.length})</h2>
+  <pre style="background: #16213e; padding: 15px; border-radius: 8px; overflow-x: auto;">
+{JSON.stringify(products.map(p => ({ id: p.id, name: p.name, slug: p.slug, descripcion_corta: p.descripcion_corta ? 'SÍ' : 'NO', especificaciones: p.especificaciones ? 'SÍ' : 'NO', galeria: p.galeria?.length || 0, imagen_url: p.imagen_url ? 'SÍ' : 'NO', categorias: p.categorias?.length || 0 })), null, 2)}
+  </pre>
+
+  <h2 style="color: #4cc9f0;">2. Categorías ({categories.length})</h2>
+  <pre style="background: #16213e; padding: 15px; border-radius: 8px; overflow-x: auto;">
+{JSON.stringify(categories.map(c => ({ id: c.id, name: c.name, slug: c.slug, parent: c.parent, count: c.count })), null, 2)}
+  </pre>
+
+  <h2 style="color: #4cc9f0;">3. Producto RAW (primer resultado)</h2>
+  <pre style="background: #16213e; padding: 15px; border-radius: 8px; overflow-x: auto; max-height: 400px;">
+{JSON.stringify(rawProduct, null, 2)}
+  </pre>
+
+  <h2 style="color: #4cc9f0;">4. Primer producto normalizado</h2>
+  <pre style="background: #16213e; padding: 15px; border-radius: 8px; overflow-x: auto; max-height: 400px;">
+{JSON.stringify(firstProduct, null, 2)}
+  </pre>
+</body>
+</html>

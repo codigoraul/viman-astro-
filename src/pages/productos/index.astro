@@ -1,0 +1,224 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import TitleBreadcrumb from '@/components/TitleBreadcrumb.astro';
+const productCategories = [
+  {
+    slug: 'escalera-de-pasajeros',
+    title: 'Escalera de pasajeros',
+    description: 'Fabricamos estanques para distintas aplicaciones, tanto para camiones de combustibles o aljibes como para sistemas de vacío.',
+    image: '/muestra/images/productos/escalera-pasajeros.jpg',
+    background: 'linear-gradient(135deg, #D5E4FF 0%, #EDF3FF 100%)'
+  },
+  {
+    slug: 'camiones-de-servicio',
+    title: 'Camiones de servicio',
+    description: 'Fabricamos camiones para distintas aplicaciones, tanto para camiones de combustibles o aljibes como para sistemas de vacío.',
+    image: '/muestra/images/productos/camiones-servicio.jpg',
+    background: 'linear-gradient(135deg, #FDF1E4 0%, #FFE5CA 100%)'
+  },
+  {
+    slug: 'carro',
+    title: 'Carros',
+    description: 'Carros de transporte aeroportuario diseñados para optimizar las operaciones en tierra. Nuestros carros permiten el traslado eficiente y seguro de equipaje.',
+    image: '/muestra/images/productos/carro.jpg',
+    background: 'linear-gradient(135deg, #EAF7FF 0%, #FFFFFF 100%)'
+  }
+];
+
+const fuelProducts = [
+  {
+    title: 'Camiones Combustible',
+    description: 'Fabricamos estanques para distintas aplicaciones, tanto para camiones de combustibles o aljibes como para sistemas de vacío.',
+    image: '/muestra/images/productos/camiones-combustible.jpg'
+  },
+  {
+    title: 'Estanque Combustible Subterráneo',
+    description: 'Fabricamos estanques para distintas aplicaciones, tanto para camiones de combustibles o aljibes como para sistemas de vacío.',
+    image: '/muestra/images/productos/estanque-combustible-subterraneo.jpg'
+  },
+  {
+    title: 'Estanque Combustible Superficie',
+    description: 'Fabricamos estanques para distintas aplicaciones, tanto para camiones de combustibles o aljibes como para sistemas de vacío.',
+    image: '/muestra/images/productos/estanque-combustible-superficie.jpg'
+  }
+];
+---
+
+<Layout title="VIMAN - Productos">
+  <Header />
+
+  <main class="min-h-screen bg-white">
+    <TitleBreadcrumb
+      title="Nuestros Productos"
+      subtitle="Soluciones especializadas para la industria aeroportuaria"
+    />
+
+    <div class="productos-wrapper">
+      <section class="hero-productos">
+        <div class="hero-productos__content">
+          <span class="hero-productos__eyebrow">Nuestros Productos</span>
+          <h1>Productos Aeroportuario</h1>
+          <p>
+            Soluciones especializadas desarrolladas en Chile para operaciones de embarque, abastecimiento y logística en pista. Diseño robusto,
+            componentes certificados y soporte local.
+          </p>
+        </div>
+      </section>
+
+      <section class="product-categories">
+        <div class="product-categories__grid">
+          {productCategories.map(category => (
+            <a href={`/muestra/categoria/${category.slug}/`} class="product-card" style={`background: ${category.background};`}>
+              <div class="product-card__image">
+                <img src={category.image} alt={category.title} loading="lazy" />
+              </div>
+              <div class="product-card__body">
+                <h3>{category.title}</h3>
+                <p>{category.description}</p>
+                <span>Ver productos →</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section class="product-categories product-categories--secondary">
+        <div class="hero-productos__content">
+          <span class="hero-productos__eyebrow">Nuestros Productos</span>
+          <h2>Productos Combustible</h2>
+        </div>
+        <div class="product-categories__grid">
+          {fuelProducts.map(product => (
+            <div class="product-card product-card--fuel" style="background: #fff;">
+              <div class="product-card__image">
+                <img src={product.image} alt={product.title} loading="lazy" />
+              </div>
+              <div class="product-card__body">
+                <h3>{product.title}</h3>
+                <p>{product.description}</p>
+                <span>Ver productos →</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <Footer />
+
+  <style>
+    .productos-wrapper {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .hero-productos {
+      padding: 4rem 1.5rem 2rem;
+      text-align: center;
+    }
+    .hero-productos__eyebrow {
+      font-size: 1.1rem;
+      color: #F29400;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .hero-productos__content h1 {
+      font-size: 36px;
+      color: #1E2A5A;
+      font-weight: 700;
+      margin: 1rem 0;
+    }
+    .hero-productos__content h2 {
+      font-size: 36px;
+      color: #1E2A5A;
+      font-weight: 700;
+      margin: 1rem 0 0.5rem;
+    }
+    .hero-productos__content p {
+      max-width: 780px;
+      margin: 0 auto;
+      color: #4B5563;
+      font-size: 1.1rem;
+      line-height: 1.7;
+    }
+    .product-categories {
+      padding: 1rem 1.5rem 4rem;
+    }
+    .product-categories--secondary {
+      padding-top: 0;
+    }
+    .product-categories--secondary .hero-productos__content {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .product-categories--secondary .hero-productos__eyebrow {
+      display: inline-block;
+      margin-bottom: 0.5rem;
+    }
+    .product-categories--secondary h2 {
+      margin-top: 0;
+    }
+    .product-categories__grid {
+      display: grid;
+      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .product-card {
+      border-radius: 10px;
+      padding: 1.75rem 1.5rem 1.75rem;
+      text-align: center;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 30px 80px rgba(15,23,42,0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.65), 0 45px 90px rgba(15,23,42,0.12);
+    }
+    .product-card__image {
+      margin: -1.75rem -1.5rem 1rem;
+      border-radius: 10px 10px 0 0;
+      overflow: hidden;
+    }
+    .product-card__image img {
+      width: 100%;
+      display: block;
+    }
+    .product-card__body h3 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #1E2A5A;
+      margin-bottom: 0.4rem;
+    }
+    .product-card__body p {
+      color: #4B5563;
+      line-height: 1.55;
+      font-size: 0.95rem;
+      padding: 0 0.5rem;
+    }
+    .product-card__body span {
+      font-weight: 600;
+      color: #1E2A5A;
+      letter-spacing: 0.05em;
+    }
+    .product-card--fuel {
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 20px 50px rgba(15,23,42,0.08);
+    }
+    @media (max-width: 768px) {
+      .hero-productos__content h1 {
+        font-size: 2.3rem;
+      }
+      .hero-productos__content p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</Layout>

@@ -1,0 +1,18 @@
+---
+export interface Props {
+  title: string;
+  subtitle?: string;
+  backgroundImage?: string;
+}
+
+const { title, subtitle, backgroundImage = '/muestra/images/title-bg-img.jpg' } = Astro.props;
+---
+
+<section class="relative bg-cover bg-center bg-no-repeat py-20" style={`background-image: linear-gradient(rgba(30, 34, 40, 0.45), rgba(30, 34, 40, 0.45)), url('${backgroundImage}');`}>
+  <div class="container mx-auto px-4 relative z-10">
+    <h1 class="text-3xl font-[600] text-[#D3D3D3] text-left mb-2">{title}</h1>
+    {subtitle && (
+      <p class="text-[#D3D3D3] text-[18px] font-normal text-left md:text-[18px]">{subtitle}</p>
+    )}
+  </div>
+</section>

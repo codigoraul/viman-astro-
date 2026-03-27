@@ -1,0 +1,194 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import TitleBreadcrumb from '@/components/TitleBreadcrumb.astro';
+import ProductCard from '@/components/ProductCard.astro';
+import { getCategories, getProductsByCategory } from '@/lib/wordpress';
+
+const categorySlug = 'aeroportuario';
+let airportCategory: any = null;
+let airportProducts: any[] = [];
+
+try {
+  const categories = await getCategories();
+  airportCategory = categories.find((cat: any) => cat.slug === categorySlug) || null;
+  if (airportCategory) {
+    airportProducts = await getProductsByCategory(airportCategory.id);
+  }
+} catch (error) {
+  console.error('Error cargando productos aeroportuarios:', error);
+}
+
+const productCategories = [
+  {
+    title: 'Aeroportuario',
+    description: 'Equipos de apoyo terrestre, escaleras de pasajeros, carros y abastecimiento para operaciones aeroportuarias.',
+    link: '/muestra/productos/aeroportuario/'
+  },
+  {
+    title: 'Combustible',
+    description: 'Estanques, camiones y soluciones de suministro para combustibles líquidos.',
+    link: '/muestra/productos/'
+  }
+];
+
+const serviceLinks = [
+  { title: 'Maestranza Industrial', link: '/muestra/servicios/maestranza/' },
+  { title: 'Mantención Industrial', link: '/muestra/servicios/mantencion-industrial/' },
+  { title: 'Servicio Técnico', link: '/muestra/servicios/servicio-tecnico/' },
+  { title: 'Servicio de Pintura', link: '/muestra/servicios/servicio-pintura/' }
+];
+
+---
+
+<Layout title="VIMAN - Productos Aeroportuarios">
+  <Header />
+
+  <main class="min-h-screen bg-white">
+    <TitleBreadcrumb
+      title="Productos Aeroportuarios"
+      subtitle="Equipos de apoyo terrestre fabricados en Chile para operaciones aeroportuarias"
+    />
+
+    <section class="container mx-auto px-4 py-16 space-y-16">
+      <!-- Products -->
+      <div>
+        <div class="section-heading">
+          <span>Catálogo Aeroportuario</span>
+          <h2>{airportCategory?.name || 'Equipamiento Aeroportuario'}</h2>
+          <p>Listado completo de productos que actualmente abastecemos para operaciones en aeropuertos.</p>
+        </div>
+
+        {airportProducts.length ? (
+          <div class="product-grid">
+            {airportProducts.map((product) => (
+              <ProductCard product={product} />
+            ))}
+          </div>
+        ) : (
+          <div class="empty-state">
+            <p>
+              Estamos preparando el lanzamiento de nuestros productos aeroportuarios. Contáctanos para recibir el catálogo detallado y asesoría personalizada.
+            </p>
+            <a href="/muestra/contacto/" class="empty-state__cta">Escríbenos</a>
+          </div>
+        )}
+      </div>
+
+      <!-- Other categories -->
+      <div class="grid gap-6 md:grid-cols-2">
+        {productCategories.map((item) => (
+          <a href={item.link} class="info-card">
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+            <span>Ver categoría →</span>
+          </a>
+        ))}
+      </div>
+
+      <!-- Services -->
+      <div>
+        <div class="section-heading">
+          <span>Nuestros servicios</span>
+          <h2>Soporte especializado para tu flota</h2>
+          <p>Conoce los servicios con los que respaldamos cada entrega.</p>
+        </div>
+        <div class="service-links">
+          {serviceLinks.map((service) => (
+            <a href={service.link} class="service-link">{service.title}</a>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+
+  <style>
+    .section-heading {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .section-heading span {
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: #f29400;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+    .section-heading h2 {
+      font-size: clamp(2rem, 4vw, 2.6rem);
+      color: #111d4a;
+      font-weight: 700;
+      margin: 0.75rem 0;
+    }
+    .section-heading p {
+      color: #4b5563;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .empty-state {
+      text-align: center;
+      padding: 3rem;
+      border: 1px dashed #cbd5f5;
+      border-radius: 1.5rem;
+      background: #f9fbff;
+    }
+    .empty-state__cta {
+      display: inline-flex;
+      margin-top: 1.5rem;
+      background: #111d4a;
+      color: #fff;
+      padding: 0.85rem 1.75rem;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+    .info-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 1.5rem;
+      padding: 2rem;
+      text-decoration: none;
+      color: #111d4a;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+    .info-card h3 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+    .info-card span {
+      display: inline-flex;
+      margin-top: 1rem;
+      color: #f29400;
+      font-weight: 600;
+    }
+    .info-card:hover {
+      border-color: #f29400;
+      transform: translateY(-4px);
+    }
+    .service-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+    }
+    .service-link {
+      border: 1px solid #e5e7eb;
+      padding: 0.85rem 1.5rem;
+      border-radius: 999px;
+      text-decoration: none;
+      color: #111d4a;
+      font-weight: 600;
+      transition: background 0.2s ease;
+    }
+    .service-link:hover {
+      background: #f4f6ff;
+    }
+  </style>
+</Layout>

@@ -1,0 +1,148 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import TitleBreadcrumb from '@/components/TitleBreadcrumb.astro';
+---
+
+<Layout title="VIMAN - Mantención Industrial">
+  <Header />
+  
+  <main class="min-h-screen bg-white">
+    <TitleBreadcrumb 
+      title="Mantención Industrial" 
+      subtitle="Programas especializados para mantener operativas tus flotas y equipos"
+    />
+
+    <section class="container mx-auto px-4 py-16">
+      <!-- Intro Section -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+        <div class="order-1">
+          <span class="text-secondary font-semibold tracking-[0.3em] uppercase text-sm">Servicio integral</span>
+          <h1 class="text-3xl lg:text-[34px] font-bold text-primary mt-4 mb-6">Mantenimiento de camiones y Maquinaria</h1>
+          <p class="text-gray-700 text-base leading-relaxed mb-4">
+            Nuestra experiencia en la fabricación de equipos y nuestra capacidad técnica nos permite entender de mejor manera las eventuales fallas que pueda tener la
+            maquinaria, dado su uso y manejo en sus faenas de trabajo.
+          </p>
+          <p class="text-gray-700 text-base leading-relaxed mb-6">
+            Disponemos de gran capacidad para la solución en áreas de mecánica, hidráulica, electromecánica y estructural de la maquinaria para cubrir un amplio
+            espectro del servicio.
+          </p>
+        </div>
+        <div class="order-2">
+          <div class="rounded-lg overflow-hidden p-8 bg-gray-50">
+            <img 
+              src="/muestra/images/servicios/servicio-tecnico.jpg" 
+              alt="Taller de mantención" 
+              class="w-full"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Mantenimiento correctivo -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+        <div class="order-2 lg:order-1">
+          <div class="rounded-lg overflow-hidden p-8 bg-gray-50">
+            <img 
+              src="/muestra/images/servicios/mantencion/mantenimiento-correctivo.jpg" 
+              alt="Mantenimiento correctivo" 
+              class="w-full"
+            />
+          </div>
+        </div>
+        <div class="order-1 lg:order-2">
+          <h2 class="text-3xl font-bold text-primary mb-6">Mantenimiento Correctivo</h2>
+          <p class="text-gray-700 text-base leading-relaxed mb-6">
+            Sabemos la importancia de mantener la maquinaria operativa para la producción y disponible para atender la demanda, por lo que es un gran problema cuando existen
+            fallas que retrasan toda la producción.
+          </p>
+          <ul class="space-y-2 text-gray-700 list-disc ml-5">
+            <li>Realizamos reparación de carrocerías de camiones.</li>
+            <li>Reparación de plumas hidráulicas.</li>
+            <li>Mecánica de camiones pesados.</li>
+            <li>Servicio de frenos para camiones.</li>
+            <li>Reparación de dirección hidráulica.</li>
+            <li>Reparación de sistemas eléctricos.</li>
+            <li>Reparación de sistemas de aire.</li>
+            <li>Reparación de sistemas hidráulicos.</li>
+            <li>Repuestos e insumos para maquinaria.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Mantenimiento preventivo -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+        <div class="order-1">
+          <h2 class="text-3xl font-bold text-primary mb-6">Mantenimiento preventivo</h2>
+          <p class="text-gray-700 text-base leading-relaxed mb-4">
+            Una buena mantención otorga más vida útil al camión o maquinaria.
+          </p>
+          <p class="text-gray-700 text-base leading-relaxed mb-6">
+            Ofrecemos servicio de mantenimiento en base a la evaluación de sistemas y componentes para la gestión de un plan de mantenimiento para mantener la confiabilidad del equipo
+            en el tiempo.
+          </p>
+          <ul class="space-y-2 text-gray-700 list-disc ml-5">
+            <li>Cumplimos pautas de mantenimiento según fabricante y certificación correspondiente.</li>
+            <li>Mayor tasa de disponibilidad del equipo para su uso inmediato.</li>
+            <li>Control y disposición del equipo para su uso.</li>
+          </ul>
+        </div>
+        <div class="order-2">
+          <div class="rounded-lg overflow-hidden p-8 bg-gray-50">
+            <img 
+              src="/muestra/images/servicios/mantencion/mantenimiento-preventivo.jpg" 
+              alt="Mantenimiento preventivo" 
+              class="w-full"
+            />
+          </div>
+        </div>
+      </div>
+
+    
+      <!-- CTA -->
+      <div class="bg-[#E4EFFC] p-8 rounded-lg text-center">
+        <h3 class="text-2xl font-bold text-primary mb-4">¿Necesitas una evaluación de tu flota?</h3>
+        <p class="text-gray-700 text-base mb-6">Coordinamos una visita técnica para diagnosticar tus equipos y proponerte el plan de mantención ideal.</p>
+        <a 
+          href="/muestra/contacto/" 
+          class="inline-block bg-secondary text-white px-8 py-4 rounded-lg font-semibold hover:bg-secondary-dark transition text-base"
+        >
+          Agendar visita
+        </a>
+      </div>
+    </section>
+
+    <!-- Related Services -->
+    <section class="bg-gray-50 py-16">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-primary mb-12 text-center">Otros Servicios</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <a href="/muestra/servicios/maestranza/" class="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition text-center group">
+            <div class="h-32 bg-gray-200 rounded-lg mb-6 flex items-center justify-center">
+              <span class="text-gray-500">Imagen Maestranza</span>
+            </div>
+            <h3 class="text-xl font-bold text-primary mb-3 group-hover:text-secondary transition">Maestranza</h3>
+            <p class="text-gray-600">Fabricación de estructuras y estanques</p>
+          </a>
+          <a href="/muestra/servicios/" class="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition text-center group">
+            <div class="h-32 bg-gray-200 rounded-lg mb-6 flex items-center justify-center">
+              <span class="text-gray-500">Imagen Pintura</span>
+            </div>
+            <h3 class="text-xl font-bold text-primary mb-3 group-hover:text-secondary transition">Pintura Industrial</h3>
+            <p class="text-gray-600">Protección anticorrosiva y terminaciones</p>
+          </a>
+          <a href="/muestra/servicios/" class="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition text-center group">
+            <div class="h-32 bg-gray-200 rounded-lg mb-6 flex items-center justify-center">
+              <span class="text-gray-500">Imagen Inspección</span>
+            </div>
+            <h3 class="text-xl font-bold text-primary mb-3 group-hover:text-secondary transition">Servicios de Inspección</h3>
+            <p class="text-gray-600">Certificaciones y revisiones normativas</p>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
