@@ -1,4 +1,5 @@
 ---
+const base = import.meta.env.BASE_URL;
 import Layout from '@/layouts/Layout.astro';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
@@ -24,20 +25,20 @@ const productCategories = [
   {
     title: 'Aeroportuario',
     description: 'Equipos de apoyo terrestre, escaleras de pasajeros, carros y abastecimiento para operaciones aeroportuarias.',
-    link: '/muestra/productos/aeroportuario/'
+    link: `${base}/productos/aeroportuario/`
   },
   {
     title: 'Combustible',
     description: 'Estanques, camiones y soluciones de suministro para combustibles líquidos.',
-    link: '/muestra/productos/'
+    link: `${base}/productos/`
   }
 ];
 
 const serviceLinks = [
-  { title: 'Maestranza Industrial', link: '/muestra/servicios/maestranza/' },
-  { title: 'Mantención Industrial', link: '/muestra/servicios/mantencion-industrial/' },
-  { title: 'Servicio Técnico', link: '/muestra/servicios/servicio-tecnico/' },
-  { title: 'Servicio de Pintura', link: '/muestra/servicios/servicio-pintura/' }
+  { title: 'Maestranza Industrial', link: `${base}/servicios/maestranza/` },
+  { title: 'Mantención Industrial', link: `${base}/servicios/mantencion-industrial/` },
+  { title: 'Servicio Técnico', link: `${base}/servicios/servicio-tecnico/` },
+  { title: 'Servicio de Pintura', link: `${base}/servicios/servicio-pintura/` }
 ];
 
 ---
@@ -71,7 +72,7 @@ const serviceLinks = [
             <p>
               Estamos preparando el lanzamiento de nuestros productos aeroportuarios. Contáctanos para recibir el catálogo detallado y asesoría personalizada.
             </p>
-            <a href="/muestra/contacto/" class="empty-state__cta">Escríbenos</a>
+            <a href={`${base}/contacto/`} class="empty-state__cta">Escríbenos</a>
           </div>
         )}
       </div>

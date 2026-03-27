@@ -24,6 +24,7 @@ jobs:
       - name: Build Astro site
         run: npm run build
         env:
+          ASTRO_BASE: /prueba
           WORDPRESS_API_URL: https://viman.cl/admin/wp-json/wp/v2
 
       - name: Deploy via FTP
@@ -33,5 +34,5 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
-          server-dir: muestra/
+          server-dir: prueba/
           dangerous-clean-slate: false

@@ -1,4 +1,5 @@
 ---
+const base = import.meta.env.BASE_URL;
 import type { WPProduct } from '@/lib/wordpress';
 
 interface Props {
@@ -22,7 +23,7 @@ const productExcerpt = product.descripcion_corta || product.short_description ||
 ---
 
 <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
-  <a href={`/muestra/producto/${product.slug}/`} class="block">
+  <a href={`${base}/producto/${product.slug}/`} class="block">
     <div class="product-card-image overflow-hidden bg-gray-100">
       <img
         src={featuredImage}

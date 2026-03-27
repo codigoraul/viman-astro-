@@ -1,4 +1,5 @@
 ---
+const base = import.meta.env.BASE_URL;
 import Layout from '@/layouts/Layout.astro';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
@@ -8,21 +9,21 @@ const productCategories = [
     slug: 'escalera-de-pasajeros',
     title: 'Escalera de pasajeros',
     description: 'Fabricamos estanques para distintas aplicaciones, tanto para camiones de combustibles o aljibes como para sistemas de vacío.',
-    image: '/muestra/images/productos/escalera-pasajeros.jpg',
+    image: `${base}/images/productos/escalera-pasajeros.jpg`,
     background: 'linear-gradient(135deg, #D5E4FF 0%, #EDF3FF 100%)'
   },
   {
     slug: 'camiones-de-servicio',
     title: 'Camiones de servicio',
     description: 'Fabricamos camiones para distintas aplicaciones, tanto para camiones de combustibles o aljibes como para sistemas de vacío.',
-    image: '/muestra/images/productos/camiones-servicio.jpg',
+    image: `${base}/images/productos/camiones-servicio.jpg`,
     background: 'linear-gradient(135deg, #FDF1E4 0%, #FFE5CA 100%)'
   },
   {
     slug: 'carro',
     title: 'Carros',
     description: 'Carros de transporte aeroportuario diseñados para optimizar las operaciones en tierra. Nuestros carros permiten el traslado eficiente y seguro de equipaje.',
-    image: '/muestra/images/productos/carro.jpg',
+    image: `${base}/images/productos/carro.jpg`,
     background: 'linear-gradient(135deg, #EAF7FF 0%, #FFFFFF 100%)'
   }
 ];
@@ -31,17 +32,17 @@ const fuelProducts = [
   {
     title: 'Camiones Combustible',
     description: 'Fabricamos estanques para distintas aplicaciones, tanto para camiones de combustibles o aljibes como para sistemas de vacío.',
-    image: '/muestra/images/productos/camiones-combustible.jpg'
+    image: `${base}/images/productos/camiones-combustible.jpg`
   },
   {
     title: 'Estanque Combustible Subterráneo',
     description: 'Fabricamos estanques para distintas aplicaciones, tanto para camiones de combustibles o aljibes como para sistemas de vacío.',
-    image: '/muestra/images/productos/estanque-combustible-subterraneo.jpg'
+    image: `${base}/images/productos/estanque-combustible-subterraneo.jpg`
   },
   {
     title: 'Estanque Combustible Superficie',
     description: 'Fabricamos estanques para distintas aplicaciones, tanto para camiones de combustibles o aljibes como para sistemas de vacío.',
-    image: '/muestra/images/productos/estanque-combustible-superficie.jpg'
+    image: `${base}/images/productos/estanque-combustible-superficie.jpg`
   }
 ];
 ---
@@ -70,7 +71,7 @@ const fuelProducts = [
       <section class="product-categories">
         <div class="product-categories__grid">
           {productCategories.map(category => (
-            <a href={`/muestra/categoria/${category.slug}/`} class="product-card" style={`background: ${category.background};`}>
+            <a href={`${base}/categoria/${category.slug}/`} class="product-card" style={`background: ${category.background};`}>
               <div class="product-card__image">
                 <img src={category.image} alt={category.title} loading="lazy" />
               </div>

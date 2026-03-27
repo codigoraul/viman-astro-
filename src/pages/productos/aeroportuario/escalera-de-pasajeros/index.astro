@@ -1,4 +1,5 @@
 ---
+const base = import.meta.env.BASE_URL;
 import Layout from '@/layouts/Layout.astro';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
@@ -44,7 +45,7 @@ function getCleanExcerpt(product: any): string {
     <TitleBreadcrumb 
       title="Escalera de Pasajeros" 
       subtitle="Soluciones seguras y eficientes para embarque y desembarque"
-      backgroundImage="/muestra/images/productos/escalera-pasajeros.jpg"
+      backgroundImage={`${base}/images/productos/escalera-pasajeros.jpg`}
     />
 
     <!-- Main Content -->
@@ -60,20 +61,20 @@ function getCleanExcerpt(product: any): string {
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {products.map((product) => (
             <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition">
-              <a href={`/muestra/producto/${product.slug}/`} class="block overflow-hidden p-8">
+              <a href={`${base}/producto/${product.slug}/`} class="block overflow-hidden p-8">
                 <img src={
                   product.imagen_url?.full || product.imagen_url?.medium ||
-                  product.images?.[0]?.src || '/muestra/images/placeholder.jpg'
+                  product.images?.[0]?.src || `${base}/images/placeholder.jpg`
                 } alt={product.name || product.title?.rendered || 'Producto'} class="w-full h-auto" />
               </a>
               <div class="p-6">
-                <a href={`/muestra/producto/${product.slug}/`} class="block">
+                <a href={`${base}/producto/${product.slug}/`} class="block">
                   <h3 class="text-xl font-bold text-primary mb-3">{product.name || product.title?.rendered}</h3>
                 </a>
                 <div class="text-gray-600 text-base mb-4" set:html={
                   getCleanExcerpt(product).replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 150) + '...'
                 }></div>
-                <a href={`/muestra/producto/${product.slug}/`} class="inline-block bg-white text-primary border border-gray-300 px-6 py-3 rounded-lg font-semibold hover:bg-gray-50 hover:border-primary transition-all duration-300 shadow-sm hover:shadow-md text-sm w-full text-center">
+                <a href={`${base}/producto/${product.slug}/`} class="inline-block bg-white text-primary border border-gray-300 px-6 py-3 rounded-lg font-semibold hover:bg-gray-50 hover:border-primary transition-all duration-300 shadow-sm hover:shadow-md text-sm w-full text-center">
                   Ver Detalles
                 </a>
               </div>
@@ -133,7 +134,7 @@ function getCleanExcerpt(product: any): string {
         <h4 class="text-2xl font-bold text-primary mb-4">¿Necesita más información?</h4>
         <p class="text-gray-700 text-base mb-6">Contáctenos para conocer más detalles sobre nuestras escaleras de pasajeros y solicitar una cotización personalizada.</p>
         <a 
-          href="/muestra/contacto/" 
+          href={`${base}/contacto/`} 
           class="inline-block bg-secondary text-white px-8 py-4 rounded-lg font-semibold hover:bg-secondary-dark transition text-base"
         >
           Solicitar Información
@@ -148,7 +149,7 @@ function getCleanExcerpt(product: any): string {
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
             <div class="overflow-hidden p-8">
-              <img src="/muestra/images/productos/camiones-servicio.jpg" alt="Camiones de servicio" class="w-full h-auto" />
+              <img src={`${base}/images/productos/camiones-servicio.jpg`} alt="Camiones de servicio" class="w-full h-auto" />
             </div>
             <div class="p-6">
               <h3 class="text-xl font-bold text-primary mb-3">Camiones de servicio</h3>
@@ -160,7 +161,7 @@ function getCleanExcerpt(product: any): string {
 
           <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
             <div class="overflow-hidden p-8">
-              <img src="/muestra/images/productos/carros.jpg" alt="Carros" class="w-full h-auto" />
+              <img src={`${base}/images/productos/carros.jpg`} alt="Carros" class="w-full h-auto" />
             </div>
             <div class="p-6">
               <h3 class="text-xl font-bold text-primary mb-3">Carros</h3>

@@ -1,4 +1,5 @@
 ---
+const base = import.meta.env.BASE_URL;
 import Layout from '@/layouts/Layout.astro';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
@@ -32,7 +33,7 @@ import TitleBreadcrumb from '@/components/TitleBreadcrumb.astro';
         <div class="order-2">
           <div class="rounded-lg overflow-hidden p-8 bg-gray-50">
             <img 
-              src="/muestra/images/servicios/servicio-tecnico.jpg" 
+              src={`${base}/images/servicios/servicio-tecnico.jpg`} 
               alt="Taller de mantención" 
               class="w-full"
             />
@@ -45,7 +46,7 @@ import TitleBreadcrumb from '@/components/TitleBreadcrumb.astro';
         <div class="order-2 lg:order-1">
           <div class="rounded-lg overflow-hidden p-8 bg-gray-50">
             <img 
-              src="/muestra/images/servicios/mantencion/mantenimiento-correctivo.jpg" 
+              src={`${base}/images/servicios/mantencion/mantenimiento-correctivo.jpg`} 
               alt="Mantenimiento correctivo" 
               class="w-full"
             />
@@ -91,7 +92,7 @@ import TitleBreadcrumb from '@/components/TitleBreadcrumb.astro';
         <div class="order-2">
           <div class="rounded-lg overflow-hidden p-8 bg-gray-50">
             <img 
-              src="/muestra/images/servicios/mantencion/mantenimiento-preventivo.jpg" 
+              src={`${base}/images/servicios/mantencion/mantenimiento-preventivo.jpg`} 
               alt="Mantenimiento preventivo" 
               class="w-full"
             />
@@ -105,7 +106,7 @@ import TitleBreadcrumb from '@/components/TitleBreadcrumb.astro';
         <h3 class="text-2xl font-bold text-primary mb-4">¿Necesitas una evaluación de tu flota?</h3>
         <p class="text-gray-700 text-base mb-6">Coordinamos una visita técnica para diagnosticar tus equipos y proponerte el plan de mantención ideal.</p>
         <a 
-          href="/muestra/contacto/" 
+          href={`${base}/contacto/`} 
           class="inline-block bg-secondary text-white px-8 py-4 rounded-lg font-semibold hover:bg-secondary-dark transition text-base"
         >
           Agendar visita
@@ -118,21 +119,21 @@ import TitleBreadcrumb from '@/components/TitleBreadcrumb.astro';
       <div class="container mx-auto px-4">
         <h2 class="text-3xl font-bold text-primary mb-12 text-center">Otros Servicios</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <a href="/muestra/servicios/maestranza/" class="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition text-center group">
+          <a href={`${base}/servicios/maestranza/`} class="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition text-center group">
             <div class="h-32 bg-gray-200 rounded-lg mb-6 flex items-center justify-center">
               <span class="text-gray-500">Imagen Maestranza</span>
             </div>
             <h3 class="text-xl font-bold text-primary mb-3 group-hover:text-secondary transition">Maestranza</h3>
             <p class="text-gray-600">Fabricación de estructuras y estanques</p>
           </a>
-          <a href="/muestra/servicios/" class="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition text-center group">
+          <a href={`${base}/servicios/`} class="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition text-center group">
             <div class="h-32 bg-gray-200 rounded-lg mb-6 flex items-center justify-center">
               <span class="text-gray-500">Imagen Pintura</span>
             </div>
             <h3 class="text-xl font-bold text-primary mb-3 group-hover:text-secondary transition">Pintura Industrial</h3>
             <p class="text-gray-600">Protección anticorrosiva y terminaciones</p>
           </a>
-          <a href="/muestra/servicios/" class="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition text-center group">
+          <a href={`${base}/servicios/`} class="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition text-center group">
             <div class="h-32 bg-gray-200 rounded-lg mb-6 flex items-center justify-center">
               <span class="text-gray-500">Imagen Inspección</span>
             </div>

@@ -1,4 +1,5 @@
 ---
+const base = import.meta.env.BASE_URL;
 import Layout from '@/layouts/Layout.astro';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
@@ -24,7 +25,7 @@ const productCards = products.map((product) => ({
   featuredImage:
     product.imagen_url?.full || product.imagen_url?.medium ||
     product.images?.[0]?.src ||
-    '/muestra/images/productos/camiones-servicio.jpg',
+    `${base}/images/productos/camiones-servicio.jpg`,
 }));
 
 const heroTitle = category?.name || 'Camiones de servicio';
@@ -80,7 +81,7 @@ const valueProps = [
       </div>
       <div class="rounded-3xl overflow-hidden shadow-xl border border-gray-100">
         <img
-          src="/muestra/images/productos/camiones-servicio-hero.jpg"
+          src={`${base}/images/productos/camiones-servicio-hero.jpg`}
           alt="Camión de servicio aeroportuario VIMAN"
           class="w-full h-full object-cover"
           loading="lazy"
@@ -126,7 +127,7 @@ const valueProps = [
                   )}
                   <div class="mt-auto flex items-center justify-between">
                     <a
-                      href={`/muestra/producto/${product.slug}/`}
+                      href={`${base}/producto/${product.slug}/`}
                       class="text-secondary font-semibold hover:text-secondary-dark transition"
                     >
                       Ver detalles →
@@ -162,7 +163,7 @@ const valueProps = [
       </div>
       <div class="rounded-[32px] overflow-hidden shadow-2xl border border-gray-100">
         <img
-          src="/muestra/images/productos/camion-servicio-operacion.jpg"
+          src={`${base}/images/productos/camion-servicio-operacion.jpg`}
           alt="Operación de camión de servicio aeroportuario"
           class="w-full h-full object-cover"
           loading="lazy"
@@ -179,7 +180,7 @@ const valueProps = [
           respaldo que exige tu aerolínea o aeropuerto.
         </p>
         <a
-          href="/muestra/contacto/"
+          href={`${base}/contacto/`}
           class="inline-flex items-center justify-center bg-secondary text-white px-10 py-4 rounded-full text-lg font-semibold hover:bg-secondary-dark transition"
         >
           Solicitar asesoría

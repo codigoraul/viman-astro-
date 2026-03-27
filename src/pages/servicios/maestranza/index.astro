@@ -1,4 +1,5 @@
 ---
+const base = import.meta.env.BASE_URL;
 import Layout from '@/layouts/Layout.astro';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
@@ -21,7 +22,7 @@ import TitleBreadcrumb from '@/components/TitleBreadcrumb.astro';
         <div class="order-2 lg:order-1">
           <div class="rounded-lg overflow-hidden p-8 bg-gray-50">
             <img 
-              src="/muestra/images/servicios/maestranza/fabricacion-de-estructura-metalica.jpg" 
+              src={`${base}/images/servicios/maestranza/fabricacion-de-estructura-metalica.jpg`} 
               alt="Fabricación de estructuras Metálicas" 
               class="w-full"
             />
@@ -129,7 +130,7 @@ import TitleBreadcrumb from '@/components/TitleBreadcrumb.astro';
         <div class="order-2">
           <div class="rounded-lg overflow-hidden p-8 bg-gray-50">
             <img 
-              src="/muestra/images/servicios/maestranza/fabricacion-y-montaje-de-estanques.png" 
+              src={`${base}/images/servicios/maestranza/fabricacion-y-montaje-de-estanques.png`} 
               alt="Fabricación y montaje de estanques" 
               class="w-full"
             />
@@ -142,7 +143,7 @@ import TitleBreadcrumb from '@/components/TitleBreadcrumb.astro';
         <div class="order-2 lg:order-1">
           <div class="rounded-lg overflow-hidden p-8 bg-gray-50">
             <img 
-              src="/muestra/images/servicios/maestranza/fabricacion-repuestos-piezas.jpg" 
+              src={`${base}/images/servicios/maestranza/fabricacion-repuestos-piezas.jpg`} 
               alt="Fabricación de repuestos y piezas" 
               class="w-full"
             />
@@ -202,7 +203,7 @@ import TitleBreadcrumb from '@/components/TitleBreadcrumb.astro';
         <div class="order-2">
           <div class="rounded-lg overflow-hidden p-8 bg-gray-50">
             <img 
-              src="/muestra/images/servicios/maestranza/estructura-y-soldadura-en-acero-inoxidable.jpg" 
+              src={`${base}/images/servicios/maestranza/estructura-y-soldadura-en-acero-inoxidable.jpg`} 
               alt="Estructura y soldadura en acero inoxidable" 
               class="w-full"
             />
@@ -215,7 +216,7 @@ import TitleBreadcrumb from '@/components/TitleBreadcrumb.astro';
         <div class="order-2 lg:order-1">
           <div class="rounded-lg overflow-hidden p-8 bg-gray-50">
             <img 
-              src="/muestra/images/servicios/maestranza/maquinas-en-taller.jpg" 
+              src={`${base}/images/servicios/maestranza/maquinas-en-taller.jpg`} 
               alt="Máquinas en taller Maestranza" 
               class="w-full"
             />
@@ -291,7 +292,7 @@ import TitleBreadcrumb from '@/components/TitleBreadcrumb.astro';
         <h4 class="text-2xl font-bold text-primary mb-4">¿Necesita un presupuesto?</h4>
         <p class="text-gray-700 text-base mb-6">Contáctenos para evaluar su proyecto y entregarle una cotización personalizada.</p>
         <a 
-          href="/muestra/contacto/" 
+          href={`${base}/contacto/`} 
           class="inline-block bg-secondary text-white px-8 py-4 rounded-lg font-semibold hover:bg-secondary-dark transition text-base"
         >
           Solicitar Cotización
@@ -304,21 +305,21 @@ import TitleBreadcrumb from '@/components/TitleBreadcrumb.astro';
       <div class="container mx-auto px-4">
         <h2 class="text-3xl font-bold text-primary mb-12 text-center">Otros Servicios</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <a href="/muestra/servicios/" class="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition text-center group">
+          <a href={`${base}/servicios/`} class="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition text-center group">
             <div class="h-32 bg-gray-200 rounded-lg mb-6 flex items-center justify-center">
               <span class="text-gray-500">Imagen Servicio Técnico</span>
             </div>
             <h3 class="text-xl font-bold text-primary mb-3 group-hover:text-secondary transition">Servicio Técnico</h3>
             <p class="text-gray-600">Mantención y reparación de equipos</p>
           </a>
-          <a href="/muestra/servicios/" class="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition text-center group">
+          <a href={`${base}/servicios/`} class="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition text-center group">
             <div class="h-32 bg-gray-200 rounded-lg mb-6 flex items-center justify-center">
               <span class="text-gray-500">Imagen Mantención Industrial</span>
             </div>
             <h3 class="text-xl font-bold text-primary mb-3 group-hover:text-secondary transition">Mantención Industrial</h3>
             <p class="text-gray-600">Servicios integrales de mantención</p>
           </a>
-          <a href="/muestra/servicios/" class="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition text-center group">
+          <a href={`${base}/servicios/`} class="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition text-center group">
             <div class="h-32 bg-gray-200 rounded-lg mb-6 flex items-center justify-center">
               <span class="text-gray-500">Imagen Pintura Industrial</span>
             </div>

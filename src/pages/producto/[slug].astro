@@ -1,4 +1,5 @@
 ---
+const base = import.meta.env.BASE_URL;
 import Layout from '@/layouts/Layout.astro';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
@@ -24,7 +25,7 @@ const { slug } = Astro.params;
 const { product }: { product: any } = Astro.props;
 
 if (!product) {
-  return Astro.redirect('/muestra/productos/');
+  return Astro.redirect(`${base}/productos/`);
 }
 
 // Datos del producto - directo desde ACF, sin transformaciones complejas
@@ -89,7 +90,7 @@ console.log(`⚡ Producto: ${productTitle} | Excerpt: ${productExcerpt ? 'SÍ' :
   <main class="min-h-screen bg-gray-50">
     <div class="container mx-auto px-4 py-8 max-w-[1280px]">
       <nav class="mb-6">
-        <a href="/muestra/productos/" class="text-secondary hover:text-secondary-dark">
+        <a href={`${base}/productos/`} class="text-secondary hover:text-secondary-dark">
           ← Volver a productos
         </a>
       </nav>
@@ -145,7 +146,7 @@ console.log(`⚡ Producto: ${productTitle} | Excerpt: ${productExcerpt ? 'SÍ' :
               <div class="flex flex-wrap gap-2">
                 {categories.map((category: any) => (
                   <a
-                    href={`/muestra/categoria/${category.slug}/`}
+                    href={`${base}/categoria/${category.slug}/`}
                     class="px-3 py-1 bg-accent-light text-primary rounded-full text-sm hover:bg-accent transition"
                   >
                     {category.name}
@@ -201,7 +202,7 @@ console.log(`⚡ Producto: ${productTitle} | Excerpt: ${productExcerpt ? 'SÍ' :
                 </a>
               ) : (
                 <a
-                  href={`/muestra/fichas/${slug}.pdf`}
+                  href={`${base}/fichas/${slug}.pdf`}
                   download
                   class="inline-flex items-center text-primary text-sm hover:text-primary-dark"
                 >
@@ -213,7 +214,7 @@ console.log(`⚡ Producto: ${productTitle} | Excerpt: ${productExcerpt ? 'SÍ' :
 
             <div class="mt-auto">
               <div class="flex gap-4">
-                <a href="/muestra/contacto/" class="flex-1 bg-secondary text-white px-8 py-3 rounded-lg font-semibold hover:bg-secondary-dark transition text-center">
+                <a href={`${base}/contacto/`} class="flex-1 bg-secondary text-white px-8 py-3 rounded-lg font-semibold hover:bg-secondary-dark transition text-center">
                   Contactar
                 </a>
                 <button class="px-6 py-3 border-2 border-secondary rounded-lg hover:bg-secondary hover:text-white transition">

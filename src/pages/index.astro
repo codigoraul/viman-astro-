@@ -1,4 +1,5 @@
 ---
+const base = import.meta.env.BASE_URL;
 import Layout from '@/layouts/Layout.astro';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
@@ -23,30 +24,30 @@ try {
 // Hero slider - 3 slides estáticos como en viman.cl
 const slides = [
   {
-    image: '/muestra/images/slider/slider-1.jpg',
+    image: `${base}/images/slider/slider-1.jpg`,
     title: 'Equipos Industriales\nCon alta fidelidad',
     description: 'Desarrollamos equipos industriales de alta fidelidad a través de procesos de ingeniería muy bien estructurados y definidos que permiten obtener resultados de alta calidad garantizada.',
-    link: '/muestra/productos/',
+    link: `${base}/productos/`,
     buttonText: 'VER PRODUCTOS',
-    secondaryLink: '/muestra/contacto/',
+    secondaryLink: `${base}/contacto/`,
     secondaryButtonText: 'CONTÁCTANOS',
     secondaryButtonColor: 'orange',
   },
   {
-    image: '/muestra/images/slider/slider-2.jpg',
+    image: `${base}/images/slider/slider-2.jpg`,
     title: 'Construimos Equipos\nIndustriales de alta fidelidad',
     description: 'Desarrollamos equipos industriales de alta fidelidad a través de procesos de ingeniería muy bien estructurados y definidos que permiten obtener resultados de alta calidad garantizada.',
-    link: '/muestra/productos/',
+    link: `${base}/productos/`,
     buttonText: 'VER PRODUCTOS',
-    secondaryLink: '/muestra/contacto/',
+    secondaryLink: `${base}/contacto/`,
     secondaryButtonText: 'CONTÁCTENOS',
     secondaryButtonColor: 'blue',
   },
   {
-    image: '/muestra/images/slider/slider-3.jpg',
+    image: `${base}/images/slider/slider-3.jpg`,
     title: 'Ingeniería y mecánica\npara equipos aeroportuarios',
     description: 'Desarrollamos equipos industriales de alta fidelidad a través de procesos de ingeniería muy bien estructurados y definidos que permiten obtener resultados de alta calidad garantizada.',
-    link: '/muestra/productos/',
+    link: `${base}/productos/`,
     buttonText: 'VER PRODUCTOS',
   },
 ];
@@ -72,33 +73,33 @@ for (const product of products) {
 const services = [
   {
     title: 'Maestranza',
-    image: '/muestra/images/servicios/maestranza.jpg',
+    image: `${base}/images/servicios/maestranza.jpg`,
     description: 'Fabricamos estanques para distintas aplicaciones, tanto para camiones de combustibles o aljibes como para sistemas de vacío.',
-    link: '/muestra/servicios/maestranza/'
+    link: `${base}/servicios/maestranza/`
   },
   {
     title: 'Servicio Tecnico',
-    image: '/muestra/images/servicios/servicio-tecnico.jpg',
+    image: `${base}/images/servicios/servicio-tecnico.jpg`,
     description: 'Mantención y reparación de camiones, grúas, maquinaria industrial, generadores eléctricos y motores con servicio especializado.',
-    link: '/muestra/servicios/servicio-tecnico/'
+    link: `${base}/servicios/servicio-tecnico/`
   },
   {
     title: 'Mantencion Industrial',
-    image: '/muestra/images/servicios/mantencion-industrial.jpg',
+    image: `${base}/images/servicios/mantencion-industrial.jpg`,
     description: 'Mantenciones preventivas y correctivas para prolongar la vida útil de sus equipos y minimizar tiempos de inactividad.',
-    link: '/muestra/servicios/mantencion-industrial/'
+    link: `${base}/servicios/mantencion-industrial/`
   },
   {
     title: 'Pintura Industrial',
-    image: '/muestra/images/servicios/pintura-industrial.jpg',
+    image: `${base}/images/servicios/pintura-industrial.jpg`,
     description: 'Servicio de pintura para estanques, camiones y maquinaria con acabados profesionales y protección contra la corrosión.',
-    link: '/muestra/servicios/servicio-pintura/'
+    link: `${base}/servicios/servicio-pintura/`
   },
   {
     title: 'Servicios de Inspeccion',
-    image: '/muestra/images/servicios/servicio-de-Inspeccion.jpg',
+    image: `${base}/images/servicios/servicio-de-Inspeccion.jpg`,
     description: 'Inspección periódica de estanques de combustibles certificada por Norma PC-110 SEC con emisión de reportes técnicos.',
-    link: '/muestra/servicios/servicio-tecnico/'
+    link: `${base}/servicios/servicio-tecnico/`
   }
 ];
 ---
@@ -187,10 +188,10 @@ const services = [
               const image = firstProduct?.imagen_url?.full
                 || firstProduct?.imagen_url?.medium
                 || firstProduct?.images?.[0]?.src
-                || `/muestra/images/productos/${subcat.slug}.jpg`;
+                || `${base}/images/productos/${subcat.slug}.jpg`;
 
               return (
-                <a href={`/muestra/categoria/${subcat.slug}/`} class="prod-card">
+                <a href={`${base}/categoria/${subcat.slug}/`} class="prod-card">
                   <div class="prod-card__img-wrap">
                     <img src={image} alt={subcat.name} class="prod-card__img" loading="lazy" />
                     <div class="prod-card__img-overlay"></div>
