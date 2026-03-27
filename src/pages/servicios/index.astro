@@ -1,34 +1,34 @@
 ---
-const base = import.meta.env.BASE_URL;
 import Layout from '@/layouts/Layout.astro';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
 import TitleBreadcrumb from '@/components/TitleBreadcrumb.astro';
+const base = import.meta.env.BASE_URL;
 
 const firstServices = [
   {
     title: 'Maestranza',
     description:
       'Fabricamos estanques para distintas aplicaciones, tanto para camiones de combustibles o aljibes como para sistemas de vacío.',
-    image: `${base}/images/servicios/maestranza.jpg`,
+    image: base + "/images/servicios/maestranza.jpg",
     alt: 'Estanque fabricado por VIMAN',
-    url: `${base}/servicios/maestranza/`
+    url: base + "/servicios/maestranza/"
   },
   {
     title: 'Servicio Técnico',
     description:
       'Contamos con la experiencia y capacidad técnica para la mantención y reparación de camiones, grúas, maquinaria industrial, generadores eléctricos y motores.',
-    image: `${base}/images/servicios/servicio-tecnico.jpg`,
+    image: base + "/images/servicios/servicio-tecnico.jpg",
     alt: 'Equipo realizando servicio técnico',
-    url: `${base}/servicios/servicio-tecnico/`
+    url: base + "/servicios/servicio-tecnico/"
   },
   {
     title: 'Mantención Industrial',
     description:
       'Nuestra capacidad técnica nos permite entender de mejor manera las eventuales fallas que pueda tener la maquinaria, dado su uso y manejo en sus faenas de trabajo.',
-    image: `${base}/images/servicios/mantencion-industrial.jpg`,
+    image: base + "/images/servicios/mantencion-industrial.jpg",
     alt: 'Proceso de mantención industrial',
-    url: `${base}/servicios/mantencion-industrial/`
+    url: base + "/servicios/mantencion-industrial/"
   }
 ];
 
@@ -37,14 +37,14 @@ const secondServices = [
     title: 'Pintura Industrial',
     description:
       'Servicio de pintura para la mantención o reparación de la capa externa de la estructura de estanques, camiones y maquinaria para el mejoramiento visual y protección contra la corrosión.',
-    image: `${base}/images/servicios/pintura-industrial.jpg`,
+    image: base + "/images/servicios/pintura-industrial.jpg",
     alt: 'Aplicación de pintura industrial'
   },
   {
     title: 'Servicios de inspección',
     description:
       'Somos maestranza calificada para la inspección periódica de estanques de combustibles para camiones por la Norma PC-110 SEC.',
-    image: `${base}/images/servicios/servicio-de-Inspeccion.jpg`,
+    image: base + "/images/servicios/servicio-de-Inspeccion.jpg",
     alt: 'Camión en proceso de inspección'
   }
 ];

@@ -1,6 +1,6 @@
 ---
-const base = import.meta.env.BASE_URL;
 // Header component - menú de navegación principal
+const base = import.meta.env.BASE_URL;
 ---
 
 <header class="header-wrapper">
@@ -42,14 +42,14 @@ const base = import.meta.env.BASE_URL;
   <div class="main-header">
     <nav class="container mx-auto px-4 py-6">
       <div class="flex items-center justify-between">
-        <a href={`${base}/`} class="logo">
+        <a href={base + "/"} class="logo">
           <img
-            src={`${base}/images/logo-viman.png`}
+            src={base + "/images/logo-viman.png"}
             alt="VIMAN"
             class="logo-img logo-color"
           />
           <img
-            src={`${base}/images/logo-viman-blanco.png`}
+            src={base + "/images/logo-viman-blanco.png"}
             alt="VIMAN"
             class="logo-img logo-white"
           />
@@ -58,39 +58,39 @@ const base = import.meta.env.BASE_URL;
         <div class="flex items-center space-x-8">
           <ul class="hidden lg:flex items-center space-x-8">
             <li>
-              <a href={`${base}/`} class="nav-link">
+              <a href={base + "/"} class="nav-link">
                 Inicio
               </a>
             </li>
             <li>
-              <a href={`${base}/nosotros/`} class="nav-link">
+              <a href={base + "/nosotros/"} class="nav-link">
                 Nosotros
               </a>
             </li>
             <li class="relative group">
-              <a href={`${base}/servicios/`} class="nav-link flex items-center gap-1">
+              <a href={base + "/servicios/"} class="nav-link flex items-center gap-1">
                 Servicios
                 <svg class="w-4 h-4 group-hover:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                 </svg>
               </a>
               <div class="absolute top-full left-0 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 min-w-[200px] z-50 mt-4">
-                <a href={`${base}/servicios/maestranza/`} class="block px-4 py-3 text-gray-700 hover:bg-gray-100 hover:text-primary transition">
+                <a href={base + "/servicios/maestranza/"} class="block px-4 py-3 text-gray-700 hover:bg-gray-100 hover:text-primary transition">
                   Maestranza
                 </a>
-                <a href={`${base}/servicios/mantencion-industrial/`} class="block px-4 py-3 text-gray-700 hover:bg-gray-100 hover:text-primary transition">
+                <a href={base + "/servicios/mantencion-industrial/"} class="block px-4 py-3 text-gray-700 hover:bg-gray-100 hover:text-primary transition">
                   Mantención Industrial
                 </a>
-                <a href={`${base}/servicios/servicio-tecnico/`} class="block px-4 py-3 text-gray-700 hover:bg-gray-100 hover:text-primary transition">
+                <a href={base + "/servicios/servicio-tecnico/"} class="block px-4 py-3 text-gray-700 hover:bg-gray-100 hover:text-primary transition">
                   Servicio Técnico
                 </a>
-                <a href={`${base}/servicios/servicio-pintura/`} class="block px-4 py-3 text-gray-700 hover:bg-gray-100 hover:text-primary transition">
+                <a href={base + "/servicios/servicio-pintura/"} class="block px-4 py-3 text-gray-700 hover:bg-gray-100 hover:text-primary transition">
                   Servicio de Pintura
                 </a>
               </div>
             </li>
             <li class="relative group">
-              <a href={`${base}/productos/`} class="nav-link flex items-center gap-1">
+              <a href={base + "/productos/"} class="nav-link flex items-center gap-1">
                 Productos
                 <svg class="w-4 h-4 group-hover:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -98,35 +98,35 @@ const base = import.meta.env.BASE_URL;
               </a>
               <div class="absolute top-full left-0 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 min-w-[220px] z-50 mt-4 dropdown-panel">
                 <div class="dropdown-section">
-                  <a href={`${base}/productos/aeroportuario/`} class="dropdown-trigger">
+                  <a href={base + "/productos/aeroportuario/"} class="dropdown-trigger">
                     Productos Aeroportuarios
                     <span class="dropdown-arrow">▸</span>
                   </a>
                   <div class="dropdown-items">
-                    <a href={`${base}/categoria/escalera-de-pasajeros/`} class="dropdown-item">
+                    <a href={base + "/categoria/escalera-de-pasajeros/"} class="dropdown-item">
                       Escalera de pasajeros
                     </a>
-                    <a href={`${base}/categoria/camiones-de-servicio/`} class="dropdown-item">
+                    <a href={base + "/categoria/camiones-de-servicio/"} class="dropdown-item">
                       Camiones de servicio
                     </a>
-                    <a href={`${base}/categoria/carro/`} class="dropdown-item">
+                    <a href={base + "/categoria/carro/"} class="dropdown-item">
                       Carro
                     </a>
                   </div>
                 </div>
                 <div class="dropdown-section">
-                  <a href={`${base}/productos/combustible/`} class="dropdown-trigger">
+                  <a href={base + "/productos/combustible/"} class="dropdown-trigger">
                     Productos Combustible
                     <span class="dropdown-arrow">▸</span>
                   </a>
                   <div class="dropdown-items">
-                    <a href={`${base}/categoria/camiones-combustible/`} class="dropdown-item">
+                    <a href={base + "/categoria/camiones-combustible/"} class="dropdown-item">
                       Camiones combustible
                     </a>
-                    <a href={`${base}/categoria/estanque-subterraneo/`} class="dropdown-item">
+                    <a href={base + "/categoria/estanque-subterraneo/"} class="dropdown-item">
                       Estanque combustible subterráneo
                     </a>
-                    <a href={`${base}/categoria/estanque-superficie/`} class="dropdown-item">
+                    <a href={base + "/categoria/estanque-superficie/"} class="dropdown-item">
                       Estanque combustible superficie
                     </a>
                   </div>
@@ -134,7 +134,7 @@ const base = import.meta.env.BASE_URL;
               </div>
             </li>
             <li>
-              <a href={`${base}/contacto/`} class="nav-link">
+              <a href={base + "/contacto/"} class="nav-link">
                 Contacto
               </a>
             </li>
@@ -157,31 +157,31 @@ const base = import.meta.env.BASE_URL;
       <div class="container mx-auto px-4 py-3">
         <ul class="space-y-2">
           <li>
-            <a href={`${base}/`} class="mobile-nav-link block py-2 px-4 text-base font-medium text-gray-800 hover:bg-gray-100 rounded-lg transition">
+            <a href={base + "/"} class="mobile-nav-link block py-2 px-4 text-base font-medium text-gray-800 hover:bg-gray-100 rounded-lg transition">
               Inicio
             </a>
           </li>
           <li>
-            <a href={`${base}/nosotros/`} class="mobile-nav-link block py-2 px-4 text-base font-medium text-gray-800 hover:bg-gray-100 rounded-lg transition">
+            <a href={base + "/nosotros/"} class="mobile-nav-link block py-2 px-4 text-base font-medium text-gray-800 hover:bg-gray-100 rounded-lg transition">
               Nosotros
             </a>
           </li>
           <li>
             <div class="mobile-submenu">
-              <a href={`${base}/servicios/`} class="mobile-nav-link block py-2 px-4 text-base font-medium text-gray-800 hover:bg-gray-100 rounded-lg transition">
+              <a href={base + "/servicios/"} class="mobile-nav-link block py-2 px-4 text-base font-medium text-gray-800 hover:bg-gray-100 rounded-lg transition">
                 Servicios
               </a>
               <div class="ml-4 mt-1 space-y-1">
-                <a href={`${base}/servicios/maestranza/`} class="block py-2 px-4 text-base text-gray-600 hover:bg-gray-50 hover:text-primary rounded-lg transition">
+                <a href={base + "/servicios/maestranza/"} class="block py-2 px-4 text-base text-gray-600 hover:bg-gray-50 hover:text-primary rounded-lg transition">
                   Maestranza
                 </a>
-                <a href={`${base}/servicios/mantencion-industrial/`} class="block py-2 px-4 text-base text-gray-600 hover:bg-gray-50 hover:text-primary rounded-lg transition">
+                <a href={base + "/servicios/mantencion-industrial/"} class="block py-2 px-4 text-base text-gray-600 hover:bg-gray-50 hover:text-primary rounded-lg transition">
                   Mantención Industrial
                 </a>
-                <a href={`${base}/servicios/servicio-tecnico/`} class="block py-2 px-4 text-base text-gray-600 hover:bg-gray-50 hover:text-primary rounded-lg transition">
+                <a href={base + "/servicios/servicio-tecnico/"} class="block py-2 px-4 text-base text-gray-600 hover:bg-gray-50 hover:text-primary rounded-lg transition">
                   Servicio Técnico
                 </a>
-                <a href={`${base}/servicios/servicio-pintura/`} class="block py-2 px-4 text-base text-gray-600 hover:bg-gray-50 hover:text-primary rounded-lg transition">
+                <a href={base + "/servicios/servicio-pintura/"} class="block py-2 px-4 text-base text-gray-600 hover:bg-gray-50 hover:text-primary rounded-lg transition">
                   Servicio de Pintura
                 </a>
               </div>
@@ -189,38 +189,38 @@ const base = import.meta.env.BASE_URL;
           </li>
           <li>
             <div class="mobile-submenu">
-              <a href={`${base}/productos/`} class="mobile-nav-link block py-2 px-4 text-base font-medium text-gray-800 hover:bg-gray-100 rounded-lg transition">
+              <a href={base + "/productos/"} class="mobile-nav-link block py-2 px-4 text-base font-medium text-gray-800 hover:bg-gray-100 rounded-lg transition">
                 Productos
               </a>
               <div class="ml-4 mt-1 space-y-1">
                 <div>
-                  <a href={`${base}/productos/combustible/`} class="block py-2 px-4 text-base text-gray-600 hover:bg-gray-50 hover:text-primary rounded-lg transition whitespace-nowrap font-medium">
+                  <a href={base + "/productos/combustible/"} class="block py-2 px-4 text-base text-gray-600 hover:bg-gray-50 hover:text-primary rounded-lg transition whitespace-nowrap font-medium">
                     Productos Combustible
                   </a>
                   <div class="ml-4 border-l border-gray-200 space-y-1 mt-1">
-                    <a href={`${base}/categoria/camiones-combustible/`} class="block py-1 px-4 text-base text-gray-600 hover:bg-gray-50 hover:text-primary rounded-lg transition">
+                    <a href={base + "/categoria/camiones-combustible/"} class="block py-1 px-4 text-base text-gray-600 hover:bg-gray-50 hover:text-primary rounded-lg transition">
                       Camiones combustible
                     </a>
-                    <a href={`${base}/categoria/estanque-subterraneo/`} class="block py-1 px-4 text-base text-gray-600 hover:bg-gray-50 hover:text-primary rounded-lg transition">
+                    <a href={base + "/categoria/estanque-subterraneo/"} class="block py-1 px-4 text-base text-gray-600 hover:bg-gray-50 hover:text-primary rounded-lg transition">
                       Estanque combustible subterráneo
                     </a>
-                    <a href={`${base}/categoria/estanque-superficie/`} class="block py-1 px-4 text-base text-gray-600 hover:bg-gray-50 hover:text-primary rounded-lg transition">
+                    <a href={base + "/categoria/estanque-superficie/"} class="block py-1 px-4 text-base text-gray-600 hover:bg-gray-50 hover:text-primary rounded-lg transition">
                       Estanque combustible superficie
                     </a>
                   </div>
                 </div>
                 <div>
-                  <a href={`${base}/productos/aeroportuario/`} class="block py-2 px-4 text-base text-gray-600 hover:bg-gray-50 hover:text-primary rounded-lg transition whitespace-nowrap font-medium">
+                  <a href={base + "/productos/aeroportuario/"} class="block py-2 px-4 text-base text-gray-600 hover:bg-gray-50 hover:text-primary rounded-lg transition whitespace-nowrap font-medium">
                     Productos Aeroportuarios
                   </a>
                   <div class="ml-4 border-l border-gray-200 space-y-1 mt-1">
-                    <a href={`${base}/categoria/escalera-de-pasajeros/`} class="block py-1 px-4 text-base text-gray-600 hover:bg-gray-50 hover:text-primary rounded-lg transition">
+                    <a href={base + "/categoria/escalera-de-pasajeros/"} class="block py-1 px-4 text-base text-gray-600 hover:bg-gray-50 hover:text-primary rounded-lg transition">
                       Escalera de pasajeros
                     </a>
-                    <a href={`${base}/categoria/camiones-de-servicio/`} class="block py-1 px-4 text-base text-gray-600 hover:bg-gray-50 hover:text-primary rounded-lg transition">
+                    <a href={base + "/categoria/camiones-de-servicio/"} class="block py-1 px-4 text-base text-gray-600 hover:bg-gray-50 hover:text-primary rounded-lg transition">
                       Camiones de servicio
                     </a>
-                    <a href={`${base}/categoria/carro/`} class="block py-1 px-4 text-base text-gray-600 hover:bg-gray-50 hover:text-primary rounded-lg transition">
+                    <a href={base + "/categoria/carro/"} class="block py-1 px-4 text-base text-gray-600 hover:bg-gray-50 hover:text-primary rounded-lg transition">
                       Carro
                     </a>
                   </div>
@@ -229,7 +229,7 @@ const base = import.meta.env.BASE_URL;
             </div>
           </li>
           <li>
-            <a href={`${base}/contacto/`} class="mobile-nav-link block py-2 px-4 text-base font-medium text-gray-800 hover:bg-gray-100 rounded-lg transition">
+            <a href={base + "/contacto/"} class="mobile-nav-link block py-2 px-4 text-base font-medium text-gray-800 hover:bg-gray-100 rounded-lg transition">
               Contacto
             </a>
           </li>

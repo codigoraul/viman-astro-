@@ -1,6 +1,6 @@
 ---
-const base = import.meta.env.BASE_URL;
 const currentYear = new Date().getFullYear();
+const base = import.meta.env.BASE_URL;
 ---
 
 <footer class="bg-[#000040] text-white mt-[80px]">
@@ -8,7 +8,7 @@ const currentYear = new Date().getFullYear();
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       <div>
         <img 
-          src={`${base}/images/logo-viman-blanco.png`} 
+          src={base + "/images/logo-viman-blanco.png"} 
           alt="VIMAN" 
           class="h-10 w-auto mb-4"
         />
@@ -21,12 +21,12 @@ const currentYear = new Date().getFullYear();
         <h4 class="text-xl font-semibold mb-6 mt-4 text-[#c4d0de]">Nuestros Productos</h4>
         <ul class="space-y-2 text-[#7a92a8] mb-8">
           <li>
-            <a href={`${base}/productos/aeroportuario/`} class="hover:text-orange-500 transition">
+            <a href={base + "/productos/aeroportuario/"} class="hover:text-orange-500 transition">
               Aeroportuario
             </a>
           </li>
           <li>
-            <a href={`${base}/productos/combustible/`} class="hover:text-orange-500 transition">
+            <a href={base + "/productos/combustible/"} class="hover:text-orange-500 transition">
               Combustible
             </a>
           </li>
@@ -35,22 +35,22 @@ const currentYear = new Date().getFullYear();
         <h4 class="text-xl font-semibold mb-6 mt-6 text-[#c4d0de]">Nuestros Servicios</h4>
         <ul class="space-y-2 text-[#7a92a8]">
           <li>
-            <a href={`${base}/servicios/maestranza-industrial/`} class="hover:text-orange-500 transition">
+            <a href={base + "/servicios/maestranza-industrial/"} class="hover:text-orange-500 transition">
               Maestranza Industrial
             </a>
           </li>
           <li>
-            <a href={`${base}/servicios/mantencion-industrial/`} class="hover:text-orange-500 transition">
+            <a href={base + "/servicios/mantencion-industrial/"} class="hover:text-orange-500 transition">
               Mantención Industrial
             </a>
           </li>
           <li>
-            <a href={`${base}/servicios/servicio-tecnico/`} class="hover:text-orange-500 transition">
+            <a href={base + "/servicios/servicio-tecnico/"} class="hover:text-orange-500 transition">
               Servicio Técnico
             </a>
           </li>
           <li>
-            <a href={`${base}/servicios/servicio-pintura/`} class="hover:text-orange-500 transition">
+            <a href={base + "/servicios/servicio-pintura/"} class="hover:text-orange-500 transition">
               Servicio de Pintura
             </a>
           </li>

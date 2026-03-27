@@ -1,9 +1,9 @@
 ---
-const base = import.meta.env.BASE_URL;
 import Layout from '@/layouts/Layout.astro';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
 import TitleBreadcrumb from '@/components/TitleBreadcrumb.astro';
+const base = import.meta.env.BASE_URL;
 ---
 
 <Layout title="VIMAN - Servicio de Pintura">
@@ -33,7 +33,7 @@ import TitleBreadcrumb from '@/components/TitleBreadcrumb.astro';
         <div>
           <div class="rounded-2xl overflow-hidden shadow-xl">
             <img
-              src={`${base}/images/servicios/pintura-industrial.jpg`}
+              src={base + "/images/servicios/pintura-industrial.jpg"}
               alt="Técnico aplicando pintura industrial"
               class="w-full h-full object-cover"
             />
@@ -46,7 +46,7 @@ import TitleBreadcrumb from '@/components/TitleBreadcrumb.astro';
         <div class="order-2 lg:order-1">
           <div class="rounded-2xl overflow-hidden shadow-xl">
             <img
-              src={`${base}/images/servicios/servicio-pintura/mantenimiento-camiones.jpg`}
+              src={base + "/images/servicios/servicio-pintura/mantenimiento-camiones.jpg"}
               alt="Restauración de flota"
               class="w-full h-full object-cover"
             />
@@ -80,7 +80,7 @@ import TitleBreadcrumb from '@/components/TitleBreadcrumb.astro';
         <div>
           <div class="rounded-xl overflow-hidden shadow-2xl">
             <img
-              src={`${base}/images/servicios/servicio-pintura/sala-pintura.jpg`}
+              src={base + "/images/servicios/servicio-pintura/sala-pintura.jpg"}
               alt="Sala de pintura Viman"
               class="w-full h-full object-cover"
             />
@@ -92,7 +92,7 @@ import TitleBreadcrumb from '@/components/TitleBreadcrumb.astro';
         <div class="space-y-6">
           <div class="rounded-2xl overflow-hidden shadow-xl">
             <img
-              src={`${base}/images/servicios/servicio-pintura/aplicacion-recubrimiento.jpg`}
+              src={base + "/images/servicios/servicio-pintura/aplicacion-recubrimiento.jpg"}
               alt="Aplicación de recubrimiento"
               class="w-full h-full object-cover"
             />

@@ -1,11 +1,11 @@
 ---
-const base = import.meta.env.BASE_URL;
 import Layout from '@/layouts/Layout.astro';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
 import TitleBreadcrumb from '@/components/TitleBreadcrumb.astro';
 import ProductCard from '@/components/ProductCard.astro';
 import { getCategories, getProductsByCategory } from '@/lib/wordpress';
+const base = import.meta.env.BASE_URL;
 
 const fuelCategorySlugs = [
   {
@@ -65,7 +65,7 @@ const sections = await Promise.all(
               <h2>{section.title}</h2>
               <p>{section.description}</p>
             </div>
-            <a href={`${base}/categoria/${section.slug}/`} class="category-link">
+            <a href={base + "/categoria/" + section.slug + "/"} class="category-link">
               Ver categoría completa
             </a>
           </div>
@@ -81,7 +81,7 @@ const sections = await Promise.all(
               <p>
                 Estamos cargando los productos de esta categoría. Escríbenos para recibir la ficha técnica y disponibilidad.
               </p>
-              <a href={`${base}/contacto/`} class="empty-state__cta">Solicitar información</a>
+              <a href={base + "/contacto/"} class="empty-state__cta">Solicitar información</a>
             </div>
           )}
         </div>

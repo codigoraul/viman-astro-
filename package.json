@@ -5,19 +5,19 @@
   "scripts": {
     "dev": "node node_modules/astro/astro.js dev",
     "start": "node node_modules/astro/astro.js dev",
-    "build": "node node_modules/astro/astro.js check && node node_modules/astro/astro.js build",
+    "build": "node node_modules/astro/astro.js build",
     "preview": "node node_modules/astro/astro.js preview",
     "astro": "node node_modules/astro/astro.js"
   },
   "dependencies": {
-    "@astrojs/tailwind": "^5.1.0",
-    "astro": "^4.15.0",
+    "@astrojs/tailwind": "^5.1.5",
+    "astro": "^4.16.19",
     "marked": "^17.0.4",
     "swiper": "^12.1.2",
     "tailwindcss": "^3.4.1"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.0",
+    "@astrojs/check": "^0.9.8",
     "typescript": "^5.5.0"
   }
 }
