@@ -107,13 +107,27 @@ async function fetchAPI<T = any>(endpoint: string, params: Record<string, string
   });
 
   try {
-    const response = await fetch(url.toString());
+    console.log(`[WordPress API] Fetching: ${url.toString()}`);
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 30000); // 30s timeout
+
+    const response = await fetch(url.toString(), {
+      signal: controller.signal,
+      headers: {
+        'Accept': 'application/json',
+      }
+    });
+    clearTimeout(timeout);
+
     if (!response.ok) {
-      throw new Error(`WordPress API error: ${response.status} ${response.statusText}`);
+      throw new Error(`WordPress API error: ${response.status} ${response.statusText} - URL: ${url.toString()}`);
     }
-    return await response.json();
+    const data = await response.json();
+    console.log(`[WordPress API] Success: ${endpoint} - ${Array.isArray(data) ? data.length : 1} items`);
+    return data;
   } catch (error) {
-    console.error('Error fetching from WordPress:', error);
+    console.error(`[WordPress API] Error fetching ${endpoint}:`, error);
+    console.error(`[WordPress API] URL was: ${url.toString()}`);
     throw error;
   }
 }
