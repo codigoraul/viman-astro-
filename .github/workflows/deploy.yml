@@ -36,3 +36,5 @@ jobs:
           local-dir: ./dist/
           server-dir: prueba/
           dangerous-clean-slate: false
+          timeout: 300000
+          log-level: verbose
