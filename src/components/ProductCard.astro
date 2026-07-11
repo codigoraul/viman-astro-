@@ -40,7 +40,7 @@ const productExcerpt = product.descripcion_corta || product.short_description ||
       </h3>
 
       {productModelo && (
-        <span class="product-model-badge">{productModelo}</span>
+        <span class="product-model-badge"><span class="product-model-label">Modelo:</span> {productModelo}</span>
       )}
 
       {productExcerpt && (
@@ -63,14 +63,18 @@ const productExcerpt = product.descripcion_corta || product.short_description ||
   .product-model-badge {
     display: inline-block;
     margin-bottom: 0.6rem;
-    padding: 0.2rem 0.7rem;
-    background-color: #050F68;
-    color: #fff;
+    padding: 0.2rem 0.6rem;
+    background-color: #EEF1F8;
+    color: #050F68;
     font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    border-radius: 9999px;
-    border-left: 3px solid #FB9500;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    border-radius: 4px;
+    border: 1px solid #DCE3F1;
+  }
+  .product-model-label {
+    color: #7A8296;
+    font-weight: 500;
   }
   .product-card-image {
     aspect-ratio: 300 / 220;
