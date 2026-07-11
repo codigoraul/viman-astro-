@@ -37,3 +37,8 @@ jobs:
           server-dir: prueba/
           protocol: ftp
           port: 21
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/.DS_Store

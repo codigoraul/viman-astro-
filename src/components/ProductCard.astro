@@ -19,6 +19,7 @@ const altText = product.images?.[0]?.alt
   || 'Producto';
 
 const productTitle = product.name || product.title?.rendered || 'Sin título';
+const productModelo = (product.modelo || '').trim();
 const productExcerpt = product.descripcion_corta || product.short_description || product.excerpt?.rendered || '';
 ---
 
@@ -38,6 +39,10 @@ const productExcerpt = product.descripcion_corta || product.short_description ||
         {productTitle}
       </h3>
 
+      {productModelo && (
+        <span class="product-model-badge">{productModelo}</span>
+      )}
+
       {productExcerpt && (
         <div
           class="text-gray-600 text-sm line-clamp-3 mb-3"
@@ -55,6 +60,18 @@ const productExcerpt = product.descripcion_corta || product.short_description ||
 </article>
 
 <style>
+  .product-model-badge {
+    display: inline-block;
+    margin-bottom: 0.6rem;
+    padding: 0.2rem 0.7rem;
+    background-color: #050F68;
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    border-radius: 9999px;
+    border-left: 3px solid #FB9500;
+  }
   .product-card-image {
     aspect-ratio: 300 / 220;
   }
