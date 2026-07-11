@@ -171,49 +171,45 @@ const services = [
 
     <section class="container mx-auto px-4 py-16" style="max-width: 1240px;">
 
-      {parentsWithChildren.map((parent) => (
-        <div class="mb-16">
-          <div class="text-center mb-12">
-            <p class="block text-secondary text-[28px] font-semibold">
-              Nuestros Productos
-            </p>
-            <h2 class="block text-primary text-[36px] font-bold">
-              {parent.name}
-            </h2>
-          </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {(childCategoriesMap[parent.id] || []).map((subcat) => {
-              const catProducts = productsByCat[subcat.id] || [];
-              const firstProduct = catProducts[0];
-              const image = firstProduct?.imagen_url?.full
-                || firstProduct?.imagen_url?.medium
-                || firstProduct?.images?.[0]?.src
-                || base + "/images/productos/" + subcat.slug + ".jpg";
+      <div class="text-center mb-12">
+        <p class="block text-secondary text-[28px] font-semibold">
+          Nuestros Productos
+        </p>
+        <h2 class="block text-primary text-[36px] font-bold">
+          Nuestros Equipos
+        </h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {parentCategories.map((cat) => {
+          const catProducts = productsByCat[cat.id] || [];
+          const firstProduct = catProducts[0];
+          const image = firstProduct?.imagen_url?.full
+            || firstProduct?.imagen_url?.medium
+            || firstProduct?.images?.[0]?.src
+            || base + "/images/productos/" + cat.slug + ".jpg";
 
-              return (
-                <a href={base + "/categoria/" + subcat.slug + "/"} class="prod-card">
-                  <div class="prod-card__img-wrap">
-                    <img src={image} alt={subcat.name} class="prod-card__img" loading="lazy" />
-                    <div class="prod-card__img-overlay"></div>
-                  </div>
-                  <div class="prod-card__body">
-                    <h3 class="prod-card__title">{subcat.name}</h3>
-                    {subcat.description && (
-                      <p class="prod-card__desc">{subcat.description}</p>
-                    )}
-                    <span class="prod-card__btn">
-                      Ver productos
-                      <svg class="prod-card__arrow" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                      </svg>
-                    </span>
-                  </div>
-                </a>
-              );
-            })}
-          </div>
-        </div>
-      ))}
+          return (
+            <a href={base + "/categoria/" + cat.slug + "/"} class="prod-card">
+              <div class="prod-card__img-wrap">
+                <img src={image} alt={cat.name} class="prod-card__img" loading="lazy" />
+                <div class="prod-card__img-overlay"></div>
+              </div>
+              <div class="prod-card__body">
+                <h3 class="prod-card__title">{cat.name}</h3>
+                {cat.description && (
+                  <p class="prod-card__desc">{cat.description}</p>
+                )}
+                <span class="prod-card__btn">
+                  Ver productos
+                  <svg class="prod-card__arrow" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                  </svg>
+                </span>
+              </div>
+            </a>
+          );
+        })}
+      </div>
 
     </section>
   </main>
