@@ -273,6 +273,10 @@ export async function getProductsByCategory(categoryId: number): Promise<WPProdu
 // CATEGORÍAS
 // ============================================================
 
+const CATEGORY_NAME_OVERRIDES: Record<string, string> = {
+  'aeroportuario': 'Equipos de Apoyo Terrestre',
+};
+
 const REQUIRED_CATEGORY_SLUGS = [
   {
     slug: 'camiones-combustible',
@@ -306,6 +310,13 @@ export async function getCategories(): Promise<WPCategory[]> {
       per_page: '100',
     });
     const categories: WPCategory[] = data.map((cat) => ({ ...cat }));
+
+    for (const cat of categories) {
+      const override = CATEGORY_NAME_OVERRIDES[cat.slug];
+      if (override) {
+        cat.name = override;
+      }
+    }
 
     for (let index = 0; index < REQUIRED_CATEGORY_SLUGS.length; index++) {
       const required = REQUIRED_CATEGORY_SLUGS[index];
