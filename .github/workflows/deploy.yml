@@ -3,6 +3,9 @@ name: Deploy to viman.cl/prueba
 on:
   push:
     branches: [main]
+  workflow_dispatch:
+  repository_dispatch:
+    types: [wordpress_update]
 
 jobs:
   deploy:
@@ -35,7 +38,7 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
           server-dir: prueba/
-          protocol: ftp
+          protocol: ftps
           port: 21
           timeout: 60000
           exclude: |
