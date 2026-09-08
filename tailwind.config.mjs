@@ -11,6 +11,9 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ['"Plus Jakarta Sans Variable"', 'system-ui', '-apple-system', 'sans-serif'],
+      },
       colors: {
         primary: {
           DEFAULT: '#050F68',
@@ -27,6 +30,9 @@ export default {
           DEFAULT: '#B0C4E8',
           dark: '#8FA8D4',
         },
+        ink: '#1F2433',
+        body: '#5B6478',
+        surface: '#F3F4F6',
       },
     },
   },

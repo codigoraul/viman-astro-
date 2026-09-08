@@ -1,4 +1,6 @@
 ---
+import '@fontsource-variable/plus-jakarta-sans';
+
 interface Props {
   title: string;
   description?: string;
@@ -12,7 +14,7 @@ const { title, description = 'Viman - Productos de calidad' } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/png" href="/images/favicon.png" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
@@ -23,25 +25,114 @@ const { title, description = 'Viman - Productos de calidad' } = Astro.props;
 </html>
 
 <style is:global>
+  /* ─────────────────────────────────────────────
+     Tokens de marca VIMAN
+     Espejo de tailwind.config.mjs — usar siempre
+     estas variables en vez de hex sueltos.
+     ───────────────────────────────────────────── */
   :root {
-    --accent: 136, 58, 234;
-    --accent-light: 224, 204, 250;
-    --accent-dark: 49, 10, 101;
-    --accent-gradient: linear-gradient(
-      45deg,
-      rgb(var(--accent)),
-      rgb(var(--accent-light)) 30%,
-      white 60%
-    );
+    --viman-primary: #050f68;
+    --viman-primary-light: #0a1a8c;
+    --viman-primary-dark: #030a45;
+
+    --viman-secondary: #fb9500;
+    --viman-secondary-light: #fca82e;
+    --viman-secondary-dark: #c97700;
+
+    --viman-accent-light: #e4effc;
+    --viman-accent: #b0c4e8;
+    --viman-accent-dark: #8fa8d4;
+
+    --viman-ink: #1f2433;
+    --viman-body: #5b6478;
+    --viman-surface: #f3f4f6;
+
+    --viman-font: 'Plus Jakarta Sans Variable', system-ui, -apple-system, sans-serif;
   }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
   html {
-    font-family: system-ui, sans-serif;
+    font-family: var(--viman-font);
     background: #ffffff;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
   }
+
   body {
     margin: 0;
     padding: 0;
+    color: var(--viman-ink);
+    font-size: 1rem;
+    line-height: 1.65;
+    font-weight: 400;
+    letter-spacing: -0.005em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
+
+  /* Los títulos aprietan el tracking: propio de las
+     grotescas geométricas en tamaños grandes. */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--viman-font);
+    color: var(--viman-primary);
+    line-height: 1.15;
+    letter-spacing: -0.022em;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  h1 {
+    letter-spacing: -0.03em;
+  }
+
+  p {
+    margin: 0 0 1rem;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  /* Foco visible y consistente en toda la web */
+  :where(a, button, input, textarea, select):focus-visible {
+    outline: 2px solid var(--viman-secondary);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: var(--viman-secondary);
+    color: #fff;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
   code {
     font-family:
       Menlo,

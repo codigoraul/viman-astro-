@@ -7,6 +7,7 @@ interface Slide {
   buttonText?: string;
   secondaryLink?: string;
   secondaryButtonText?: string;
+  /** 'orange' (marca, por defecto) | 'ghost' (contorno blanco) */
   secondaryButtonColor?: string;
 }
 
@@ -26,9 +27,10 @@ const { slides } = Astro.props;
             <div class="slide-image-wrapper">
               <img
                 src={slide.image}
-                alt={slide.title}
+                alt={slide.title.replace(/\n/g, ' ')}
                 class="slide-image"
                 loading={index === 0 ? "eager" : "lazy"}
+                fetchpriority={index === 0 ? "high" : "auto"}
               />
             </div>
             <div class="slide-overlay"></div>
@@ -44,7 +46,7 @@ const { slides } = Astro.props;
                 {slide.secondaryLink && slide.secondaryButtonText && (
                   <a
                     href={slide.secondaryLink}
-                    class={`slide-btn slide-btn-color ${slide.secondaryButtonColor === 'blue' ? 'slide-btn-blue' : 'slide-btn-orange'}`}
+                    class={`slide-btn ${slide.secondaryButtonColor === 'ghost' ? 'slide-btn-ghost' : 'slide-btn-orange'}`}
                   >
                     {slide.secondaryButtonText}
                   </a>
@@ -62,16 +64,21 @@ const { slides } = Astro.props;
 </div>
 
 <style>
+  /* Altura fluida: nunca desborda en laptops de 720p
+     y usa svh para no saltar con la barra del móvil. */
   .hero-slider-container {
     width: 100%;
-    height: 730px;
+    height: 700px;
+    height: clamp(560px, 86svh, 760px);
     position: relative;
     overflow: hidden;
+    background: #030a45;
   }
 
   @media (max-width: 768px) {
     .hero-slider-container {
-      height: 650px;
+      height: 600px;
+      height: clamp(500px, 80svh, 640px);
     }
   }
 
@@ -111,9 +118,10 @@ const { slides } = Astro.props;
     transform: scale(1);
   }
 
-  /* Efecto Ken Burns - zoom lento en el slide activo */
+  /* Ken Burns sincronizado con el autoplay:
+     5000ms de delay + 800ms de transición = 5.8s. */
   :global(.swiper-slide-active) .slide-image {
-    animation: kenBurnsZoom 8s ease-out forwards;
+    animation: kenBurnsZoom 5.8s linear forwards;
   }
 
   @keyframes kenBurnsZoom {
@@ -121,19 +129,23 @@ const { slides } = Astro.props;
       transform: scale(1);
     }
     100% {
-      transform: scale(1.1);
+      transform: scale(1.08);
     }
   }
 
-  /* Overlay oscuro sobre la imagen */
+  /* Velo azul marca: oscurece arriba y abajo para que
+     el texto blanco se lea sobre cualquier foto. */
   .slide-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.15);
+    inset: 0;
     z-index: 2;
+    background:
+      linear-gradient(
+        180deg,
+        rgba(3, 10, 69, 0.62) 0%,
+        rgba(3, 10, 69, 0.34) 45%,
+        rgba(3, 10, 69, 0.68) 100%
+      );
   }
 
   /* Texto centrado */
@@ -150,10 +162,13 @@ const { slides } = Astro.props;
   }
 
   .slide-title {
-    font-size: 3.8rem;
-    font-weight: 600;
-    line-height: 1.1;
-    margin-bottom: 1.5rem;
+    font-size: clamp(2.1rem, 5.2vw, 3.7rem);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    color: #fff;
+    margin: 0 0 1.4rem;
+    text-shadow: 0 2px 24px rgba(3, 10, 69, 0.45);
     opacity: 0;
   }
 
@@ -162,14 +177,13 @@ const { slides } = Astro.props;
   }
 
   .slide-description {
-    font-size: 1.225rem;
+    font-size: clamp(1rem, 1.35vw, 1.185rem);
     line-height: 1.7;
-    margin-bottom: 2.5rem;
+    margin: 0 auto 2.5rem;
     max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
     opacity: 0;
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.92);
+    text-shadow: 0 1px 14px rgba(3, 10, 69, 0.4);
   }
 
   :global(.swiper-slide-active) .slide-description {
@@ -192,65 +206,70 @@ const { slides } = Astro.props;
 
   .slide-btn {
     display: inline-block;
-    padding: 1rem 2.8rem;
-    font-weight: 600;
-    font-size: 0.95rem;
-    letter-spacing: 0.05em;
+    padding: 1rem 2.6rem;
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     border-radius: 50px;
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease,
+      border-color 0.3s ease, transform 0.25s ease, box-shadow 0.3s ease;
     cursor: pointer;
+  }
+
+  .slide-btn:hover {
+    transform: translateY(-2px);
   }
 
   /* Botón blanco (VER PRODUCTOS) */
   .slide-btn-white {
-    background-color: white;
-    color: #1a1a1a;
-    border: 2px solid white;
+    background-color: #fff;
+    color: var(--viman-primary, #050f68);
+    border: 2px solid #fff;
+    box-shadow: 0 6px 24px rgba(3, 10, 69, 0.25);
   }
 
   .slide-btn-white:hover {
     background-color: transparent;
-    color: white;
+    color: #fff;
   }
 
-  /* Botón naranja (CONTÁCTANOS) */
+  /* Botón naranja de marca (CONTÁCTANOS) */
   .slide-btn-orange {
-    background-color: #F5A623;
-    color: white;
-    border: 2px solid #F5A623;
+    background-color: var(--viman-secondary, #fb9500);
+    color: #fff;
+    border: 2px solid var(--viman-secondary, #fb9500);
+    box-shadow: 0 6px 24px rgba(251, 149, 0, 0.32);
   }
 
   .slide-btn-orange:hover {
-    background-color: #d4911e;
-    border-color: #d4911e;
+    background-color: var(--viman-secondary-dark, #c97700);
+    border-color: var(--viman-secondary-dark, #c97700);
   }
 
-  /* Botón azul (CONTÁCTENOS) */
-  .slide-btn-blue {
-    background-color: #5DADE2;
-    color: white;
-    border: 2px solid #5DADE2;
+  /* Variante contorno: alternativa al antiguo botón azul,
+     que no pertenecía a la paleta de marca. */
+  .slide-btn-ghost {
+    background-color: transparent;
+    color: #fff;
+    border: 2px solid rgba(255, 255, 255, 0.75);
   }
 
-  .slide-btn-blue:hover {
-    background-color: #3498db;
-    border-color: #3498db;
+  .slide-btn-ghost:hover {
+    background-color: #fff;
+    color: var(--viman-primary, #050f68);
+    border-color: #fff;
   }
 
   @media (max-width: 768px) {
-    .slide-title {
-      font-size: 2.2rem;
-    }
-
     .slide-description {
-      font-size: 0.95rem;
+      margin-bottom: 2rem;
     }
 
     .slide-btn {
-      padding: 0.8rem 2rem;
-      font-size: 0.85rem;
+      padding: 0.85rem 2.1rem;
+      font-size: 0.8rem;
     }
 
     .slide-buttons {
@@ -270,6 +289,15 @@ const { slides } = Astro.props;
     }
   }
 
+  /* Sin animación: el texto simplemente está visible */
+  @media (prefers-reduced-motion: reduce) {
+    .slide-title,
+    .slide-description,
+    .slide-buttons {
+      opacity: 1;
+    }
+  }
+
   /* Paginación vertical derecha - estilo viman.cl */
   :global(.hero-swiper .swiper-pagination) {
     right: 2rem !important;
@@ -282,21 +310,33 @@ const { slides } = Astro.props;
     align-items: center;
     gap: 10px;
     width: auto !important;
+    z-index: 12;
   }
 
   :global(.hero-swiper .swiper-pagination-bullet) {
-    width: 10px;
-    height: 10px;
+    width: 4px;
+    height: 22px;
     background-color: #fff;
-    opacity: 0.7;
-    border-radius: 2px;
-    transition: all 0.3s ease;
+    opacity: 0.45;
+    border-radius: 4px;
+    transition: all 0.35s ease;
     margin: 0 !important;
+  }
+
+  :global(.hero-swiper .swiper-pagination-bullet:hover) {
+    opacity: 0.8;
   }
 
   :global(.hero-swiper .swiper-pagination-bullet-active) {
     opacity: 1;
-    background-color: #2B7CE9;
+    height: 40px;
+    background-color: var(--viman-secondary, #fb9500);
+  }
+
+  @media (max-width: 768px) {
+    :global(.hero-swiper .swiper-pagination) {
+      right: 1rem !important;
+    }
   }
 </style>
 
