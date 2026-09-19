@@ -284,18 +284,6 @@ const REQUIRED_CATEGORY_SLUGS = [
     description: 'Camiones abastecedores y tanques móviles certificados para operaciones industriales y aeroportuarias.',
     fallbackProductSlugs: [],
   },
-  {
-    slug: 'estanque-combustible-subterraneo',
-    name: 'Estanque Combustible Subterráneo',
-    description: 'Estanques subterráneos de combustibles con protocolos de inspección, control de fugas y doble contención.',
-    fallbackProductSlugs: ['estanque-combustible-subterraneo'],
-  },
-  {
-    slug: 'estanque-combustible-superficie',
-    name: 'Estanque Combustible Superficie',
-    description: 'Soluciones en superficie para almacenamiento seguro de combustibles en faenas y plantas industriales.',
-    fallbackProductSlugs: ['estanque-combustible-superficie'],
-  },
 ];
 
 export async function getCategories(): Promise<WPCategory[]> {

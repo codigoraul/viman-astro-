@@ -51,9 +51,29 @@ jobs:
             **/node_modules/**
             **/.DS_Store
 
-      - name: Verificar resultado del deploy
+      - name: Reintento con FTP simple (sin TLS)
+        id: ftp_plain
+        continue-on-error: true
         if: steps.ftp_deploy.outcome == 'failure'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/
+          server-dir: prueba/
+          protocol: ftp
+          port: 21
+          timeout: 60000
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/.DS_Store
+
+      - name: Verificar resultado del deploy
+        if: steps.ftp_deploy.outcome == 'failure' && steps.ftp_plain.outcome == 'failure'
         run: |
-          echo "El deploy FTP fallo."
-          echo "Revisa con el hosting: limite de conexiones simultaneas, bloqueo de IPs o estado del servicio FTP."
+          echo "Fallaron FTPS y FTP simple."
+          echo "Revisa con el hosting: limite de conexiones simultaneas, bloqueo de IPs, puertos pasivos o estado del servicio FTP."
           exit 1

@@ -9,7 +9,7 @@ const base = import.meta.env.BASE_URL;
 export async function getStaticPaths() {
   try {
     const categories = await getCategories();
-    const allProducts = await getProducts(200);
+    const allProducts = await getProducts(100);
 
     const paths = await Promise.all(
       categories.map(async (category) => {
