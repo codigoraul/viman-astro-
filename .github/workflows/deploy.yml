@@ -4,8 +4,6 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
-  repository_dispatch:
-    types: [wordpress_update]
 
 concurrency:
   group: deploy-prueba
@@ -53,60 +51,9 @@ jobs:
             **/node_modules/**
             **/.DS_Store
 
-      - name: Esperar a que el servidor libere sesiones FTP
-        if: steps.ftp_deploy.outcome == 'failure'
-        run: sleep 180
-
-      - name: Reintentar deploy via FTP
-        id: ftp_retry
-        continue-on-error: true
-        if: steps.ftp_deploy.outcome == 'failure'
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./dist/
-          server-dir: prueba/
-          protocol: ftps
-          port: 21
-          timeout: 120000
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/**
-            **/.DS_Store
-
-      - name: Esperar antes del ultimo intento
-        if: steps.ftp_deploy.outcome == 'failure' && steps.ftp_retry.outcome == 'failure'
-        run: sleep 300
-
-      - name: Ultimo intento de deploy via FTP
-        id: ftp_last
-        continue-on-error: true
-        if: steps.ftp_deploy.outcome == 'failure' && steps.ftp_retry.outcome == 'failure'
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./dist/
-          server-dir: prueba/
-          protocol: ftps
-          port: 21
-          timeout: 120000
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/**
-            **/.DS_Store
-
       - name: Verificar resultado del deploy
-        if: |
-          steps.ftp_deploy.outcome == 'failure' &&
-          steps.ftp_retry.outcome == 'failure' &&
-          steps.ftp_last.outcome == 'failure'
+        if: steps.ftp_deploy.outcome == 'failure'
         run: |
-          echo "Los 3 intentos de deploy FTP fallaron."
+          echo "El deploy FTP fallo."
           echo "Revisa con el hosting: limite de conexiones simultaneas, bloqueo de IPs o estado del servicio FTP."
           exit 1
