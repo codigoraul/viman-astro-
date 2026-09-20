@@ -5,3 +5,6 @@ dist/
 .astro/
 public/contacto-config.php
 *.xlsx
+
+.env.deploy
+Claude outputs/
