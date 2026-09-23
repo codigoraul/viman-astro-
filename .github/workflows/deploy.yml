@@ -32,48 +32,44 @@ jobs:
           ASTRO_BASE: /prueba
           WORDPRESS_API_URL: https://viman.cl/admin/wp-json/wp/v2
 
-      - name: Deploy via FTP
-        id: ftp_deploy
-        continue-on-error: true
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./dist/
-          server-dir: prueba/
-          protocol: ftps
-          port: 21
-          timeout: 120000
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/**
-            **/.DS_Store
+      - name: Install lftp
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
 
-      - name: Reintento con FTP simple (sin TLS)
-        id: ftp_plain
-        continue-on-error: true
-        if: steps.ftp_deploy.outcome == 'failure'
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./dist/
-          server-dir: prueba/
-          protocol: ftp
-          port: 21
-          timeout: 60000
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/**
-            **/.DS_Store
-
-      - name: Verificar resultado del deploy
-        if: steps.ftp_deploy.outcome == 'failure' && steps.ftp_plain.outcome == 'failure'
+      - name: Deploy via lftp (FTPS con fallback a FTP)
+        env:
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
         run: |
-          echo "Fallaron FTPS y FTP simple."
-          echo "Revisa con el hosting: limite de conexiones simultaneas, bloqueo de IPs, puertos pasivos o estado del servicio FTP."
+          set -u
+          deploy() {
+            local ssl="$1"
+            lftp -u "$FTP_USERNAME","$FTP_PASSWORD" "$FTP_HOST" <<LFTP
+          set ssl:verify-certificate no
+          set ftp:ssl-allow $ssl
+          set ftp:ssl-force no
+          set ftp:ssl-protect-data $ssl
+          set ftp:passive-mode yes
+          set ftp:prefer-epsv no
+          set net:max-retries 3
+          set net:reconnect-interval-base 5
+          set net:timeout 60
+          set mirror:parallel-transfer-count 1
+          mirror -R --delete --verbose=1 \
+            --exclude-glob .git* --exclude-glob .DS_Store --exclude-glob node_modules/ \
+            dist/ prueba/
+          bye
+          LFTP
+          }
+
+          for intento in 1 2 3; do
+            echo "==> Intento $intento: FTPS"
+            if deploy yes; then echo "Deploy OK (FTPS)"; exit 0; fi
+            echo "==> Intento $intento: FTP sin TLS"
+            if deploy no; then echo "Deploy OK (FTP)"; exit 0; fi
+            sleep $((intento * 20))
+          done
+
+          echo "Fallaron FTPS y FTP tras 3 intentos."
+          echo "Si el servidor responde desde tu Mac pero no desde GitHub, el hosting bloquea las IPs de GitHub Actions: pide desbloqueo/whitelist o usa ./deploy-local.sh"
           exit 1
