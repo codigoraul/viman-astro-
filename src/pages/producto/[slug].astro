@@ -3,7 +3,6 @@ import Layout from '@/layouts/Layout.astro';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
 import { getProducts } from '@/lib/wordpress';
-import { marked } from 'marked';
 const base = import.meta.env.BASE_URL;
 
 export async function getStaticPaths() {
@@ -42,8 +41,9 @@ const altText = product.galeria?.[0]?.alt
   || product.images?.[0]?.alt
   || productTitle;
 
-// Categorías desde el campo computado del plugin
-const categories = product.categorias || [];
+// Categorías desde el campo computado del plugin.
+// Solo se muestran categorías principales (parent = 0); las subcategorías no se muestran como etiqueta.
+const categories = (product.categorias || []).filter((c: any) => !c.parent);
 
 // Descripción corta desde ACF (campo dedicado, sin limpieza compleja)
 const productExcerpt = product.descripcion_corta
@@ -67,11 +67,6 @@ if (galleryImages.length === 0 && featuredImage !== 'https://via.placeholder.com
   galleryImages.push({ src: featuredImage, alt: altText });
 }
 
-// Especificaciones técnicas - convertir Markdown a HTML si existe contenido
-const especificacionesHTML = product.especificaciones
-  ? marked(product.especificaciones)
-  : '';
-
 // Ficha técnica PDF desde ACF
 const fichaTecnica = product.ficha_tecnica?.url || null;
 
@@ -81,7 +76,7 @@ const capacidad = product.capacidad || '';
 const material = product.material || '';
 
 // Debug
-console.log(`⚡ Producto: ${productTitle} | Excerpt: ${productExcerpt ? 'SÍ' : 'NO'} | Specs: ${especificacionesHTML ? 'SÍ' : 'NO'} | Galería: ${galleryImages.length} imgs`);
+console.log(`⚡ Producto: ${productTitle} | Excerpt: ${productExcerpt ? 'SÍ' : 'NO'} | Galería: ${galleryImages.length} imgs`);
 ---
 
 <Layout title={`${productTitle} - VIMAN`} description={(productExcerpt || productContent).replace(/<[^>]*>/g, '').substring(0, 160)}>
@@ -162,6 +157,20 @@ console.log(`⚡ Producto: ${productTitle} | Excerpt: ${productExcerpt ? 'SÍ' :
               />
             )}
 
+            <!-- Ficha técnica PDF (las especificaciones solo viven en el PDF) -->
+            <a
+              href={fichaTecnica ? fichaTecnica : base + "/fichas/" + slug + ".pdf"}
+              target="_blank"
+              rel="noopener"
+              class="ficha-cta group flex items-center gap-3 rounded-lg border-2 border-primary bg-white px-4 py-3 text-primary transition hover:bg-accent-light focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            >
+              <span class="flex-shrink-0 rounded bg-secondary px-1.5 py-0.5 text-[11px] font-extrabold tracking-wide text-white" aria-hidden="true">PDF</span>
+              <span class="flex-1 font-semibold">Descargar Ficha Técnica (PDF)</span>
+              <svg class="h-5 w-5 flex-shrink-0 transition-transform group-hover:translate-y-0.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 20h14" />
+              </svg>
+            </a>
+
             <!-- Datos técnicos rápidos desde ACF -->
             {(modelo || capacidad || material) && (
               <div class="bg-gray-50 rounded-lg p-4 mb-6">
@@ -189,29 +198,6 @@ console.log(`⚡ Producto: ${productTitle} | Excerpt: ${productExcerpt ? 'SÍ' :
               </div>
             )}
 
-            <div class="mb-6">
-              {fichaTecnica ? (
-                <a
-                  href={fichaTecnica}
-                  target="_blank"
-                  rel="noopener"
-                  class="inline-flex items-center text-primary text-sm hover:text-primary-dark"
-                >
-                  <span class="text-lg mr-2">↓</span>
-                  Descargar Ficha Técnica (PDF)
-                </a>
-              ) : (
-                <a
-                  href={base + "/fichas/" + slug + ".pdf"}
-                  download
-                  class="inline-flex items-center text-primary text-sm hover:text-primary-dark"
-                >
-                  <span class="text-lg mr-2">↓</span>
-                  Documento PDF
-                </a>
-              )}
-            </div>
-
             <div class="mt-auto">
               <div class="flex gap-4">
                 <a href={base + "/contacto/"} class="flex-1 bg-secondary text-white px-8 py-3 rounded-lg font-semibold hover:bg-secondary-dark transition text-center">
@@ -229,46 +215,15 @@ console.log(`⚡ Producto: ${productTitle} | Excerpt: ${productExcerpt ? 'SÍ' :
 
         <!-- Product Details Section -->
         <div class="border-t">
-          <div class="flex border-b">
-            <button
-              id="description-tab"
-              class="flex-1 px-6 py-4 text-center font-semibold text-primary border-b-2 border-primary bg-gray-50"
-            >
-              Descripción
-            </button>
-            <button
-              id="specifications-tab"
-              class="flex-1 px-6 py-4 text-center font-semibold text-gray-600 hover:text-primary transition"
-            >
-              Especificaciones Técnicas
-            </button>
+          <div class="border-b bg-gray-50 px-6 py-4">
+            <h2 class="text-lg font-semibold text-primary">Descripción</h2>
           </div>
 
-          <!-- Tab Content -->
           <div class="p-8">
-            <div id="description-content" class="tab-content">
-              <div
-                class="prose prose-lg max-w-none text-gray-700"
-                set:html={productContent}
-              />
-            </div>
-
-            <div id="specifications-content" class="tab-content hidden">
-              <div class="space-y-4">
-                {especificacionesHTML ? (
-                  <div class="especificaciones-tecnicas">
-                    <div class="prose prose-lg max-w-none text-gray-700 especificaciones-tecnicas__content">
-                      <Fragment set:html={especificacionesHTML} />
-                    </div>
-                  </div>
-                ) : (
-                  <div class="text-gray-600 text-center py-8">
-                    <p class="text-lg">No hay especificaciones técnicas disponibles para este producto.</p>
-                    <p class="mt-2">Para obtener información técnica detallada, por favor contáctanos directamente.</p>
-                  </div>
-                )}
-              </div>
-            </div>
+            <div
+              class="prose prose-lg max-w-none text-gray-700"
+              set:html={productContent}
+            />
           </div>
         </div>
       </div>
@@ -311,8 +266,6 @@ console.log(`⚡ Producto: ${productTitle} | Excerpt: ${productExcerpt ? 'SÍ' :
   .prose h1, .prose h2, .prose h3 { color: #1f2937; }
   .prose a { color: #2563eb; }
   .prose a:hover { color: #1d4ed8; }
-  .tab-content { display: block; }
-  .tab-content.hidden { display: none; }
   .lightbox-hidden { display: none; }
   .lightbox-visible {
     display: flex;
@@ -322,54 +275,6 @@ console.log(`⚡ Producto: ${productTitle} | Excerpt: ${productExcerpt ? 'SÍ' :
     z-index: 50;
     align-items: center;
     justify-content: center;
-  }
-  .especificaciones-tecnicas {
-    background: #fff;
-    border-radius: 12px;
-    padding: 24px;
-  }
-  .especificaciones-tecnicas__content {
-    margin: 0;
-  }
-  :global(.especificaciones-tecnicas table) {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.95rem;
-    background-color: #ffffff;
-    border-radius: 8px;
-    overflow: hidden;
-  }
-  :global(.especificaciones-tecnicas th),
-  :global(.especificaciones-tecnicas td) {
-    border: 1px solid #d7dce3;
-    padding: 14px 18px;
-    text-align: left;
-  }
-  :global(.especificaciones-tecnicas tr:nth-child(odd) td) {
-    background-color: #ffffff;
-  }
-  :global(.especificaciones-tecnicas tr:nth-child(even) td) {
-    background-color: #e9edf2;
-  }
-  :global(.especificaciones-tecnicas th) {
-    background-color: #1b2636;
-    color: #fff;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    background-image: linear-gradient(135deg, #1b2636 0%, #253144 100%);
-  }
-  :global(.especificaciones-tecnicas th:empty) {
-    display: none;
-    padding: 0;
-    border: none;
-    height: 0;
-    background: transparent;
-  }
-
-  /* Ocultar fila completa si todos los th están vacíos */
-  :global(.especificaciones-tecnicas tr:has(th:empty):not(:has(th:not(:empty)))) {
-    display: none;
   }
 </style>
 
@@ -395,23 +300,6 @@ console.log(`⚡ Producto: ${productTitle} | Excerpt: ${productExcerpt ? 'SÍ' :
       if (clickedButton) {
         clickedButton.classList.remove('border-gray-200');
         clickedButton.classList.add('border-primary', 'ring-2', 'ring-primary', 'ring-offset-2');
-      }
-    }
-
-    function showTab(tabName) {
-      document.querySelectorAll('.tab-content').forEach(function(content) {
-        content.classList.add('hidden');
-      });
-      document.querySelectorAll('[id$="-tab"]').forEach(function(tab) {
-        tab.classList.remove('text-primary', 'border-b-2', 'border-primary', 'bg-gray-50');
-        tab.classList.add('text-gray-600');
-      });
-      var selectedContent = document.getElementById(tabName + '-content');
-      if (selectedContent) selectedContent.classList.remove('hidden');
-      var activeTab = document.getElementById(tabName + '-tab');
-      if (activeTab) {
-        activeTab.classList.remove('text-gray-600');
-        activeTab.classList.add('text-primary', 'border-b-2', 'border-primary', 'bg-gray-50');
       }
     }
 
@@ -503,19 +391,6 @@ console.log(`⚡ Producto: ${productTitle} | Excerpt: ${productExcerpt ? 'SÍ' :
     document.getElementById('lightbox').addEventListener('click', function(e) {
       if (e.target === document.getElementById('lightbox')) closeLightbox();
     });
-
-    // Eliminar filas vacías de la tabla de especificaciones
-    document.querySelectorAll('.especificaciones-tecnicas tr').forEach(function(row) {
-      var cells = row.querySelectorAll('th, td');
-      var allEmpty = Array.from(cells).every(function(cell) {
-        return cell.textContent.trim() === '';
-      });
-      if (allEmpty) row.style.display = 'none';
-    });
-
-    // Tabs
-    document.getElementById('description-tab').addEventListener('click', function() { showTab('description'); });
-    document.getElementById('specifications-tab').addEventListener('click', function() { showTab('specifications'); });
 
     // Keyboard navigation
     document.addEventListener('keydown', function(e) {
